@@ -1,0 +1,1727 @@
+\documentclass[11pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xurl}               % permissive URL line-breaking
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{cleveref}
+
+% ── Theorem environments ──────────────────────────────────────────────────
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ── Notation shortcuts ────────────────────────────────────────────────────
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\wt}{\operatorname{wt}}
+\newcommand{\Estd}{E_{\mathrm{std}}}
+\newcommand{\Vstd}{V_{\mathrm{std}}}
+
+% ── Title ─────────────────────────────────────────────────────────────────
+\title{Determinant Divisibility of Centered Latin Squares:\\
+  A Unified Theorem and the $\FF_2$-Rank Obstruction}
+\author{Oleksiy Babanskyy}
+\date{}
+
+\begin{document}
+\maketitle
+
+% ══════════════════════════════════════════════════════════════════════════
+% ABSTRACT
+% ══════════════════════════════════════════════════════════════════════════
+\begin{abstract}
+Let $L$ be an $n\times n$ Latin square with entries in $\{1,\dots,n\}$
+and let $\Estd = P^TEP$ denote the Gram-projected
+$(n{-}1)\times(n{-}1)$ matrix of the centered operator
+$E=L-\tfrac{n+1}{2}J$ on the standard subspace~$\Vstd$,
+where $P$ is the basis matrix of~$\Vstd$.
+
+We prove three main results.
+First, $\frac{n^2}{\gcd(n,2)}$ divides $\det(\Estd)$ for every Latin
+square of every order $n\ge 2$; for odd~$n$ the stronger bound
+$n^2\mid\det(\Estd)$ holds universally (\emph{unified divisibility}).
+Second, for even~$n$ we give a complete $\FF_2$-rank characterization
+of the Latin squares that achieve the improved divisibility
+$n^2\mid\det(\Estd)$: when $n\equiv 2\pmod{4}$ the criterion is
+$\rank_{\FF_2}(A\bmod 2)<n-1$; when $n\equiv 0\pmod{4}$ the criterion
+is $\adj(A\bmod 2)\cdot\one=\mathbf{0}$ over~$\FF_2$.
+In both cases the parity pattern $L\bmod 2$ is a complete invariant
+(\emph{complete binary criterion}).  Equivalently, the obstruction to
+$n^2$-divisibility is entirely $2$-adic: every odd prime factor of~$n$
+contributes its share unconditionally.
+Third, we prove that counterexamples to $n^2$-divisibility exist for
+every $n\equiv 2\pmod{4}$, $n\ge 6$, via an explicit infinite family
+of skip-one circulant parity patterns (\emph{universal counterexamples}).
+
+These results are complemented by $p$-adic lower bounds:
+$v_p(\det A)\ge v_p(n)+\max(0,k_p-1)$ for every odd prime~$p\mid n$,
+and $v_2(\det A)\ge v_2(n/2)+\max(0,k_2-1)$ when $n$ is even
+(empirically tight across sampled instances up to $n\le 20$),
+a cokernel computation for cyclic
+Latin squares, and exhaustive/constructive counterexample analyses
+at orders $6$ and~$10$.  The determinant side of the story may be viewed
+as complementary to earlier work on determinants and permanents of Latin
+squares~\cite{FordJohnson96,DJW16}.
+\end{abstract}
+
+\bigskip
+\noindent
+\textbf{Keywords:} Latin squares, determinant divisibility, $\FF_2$-rank,
+centered matrix, constant-weight code, parity pattern.
+
+\medskip
+\noindent
+\textbf{MSC 2020:} 05B15, 15A15, 11C20.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Introduction}\label{sec:intro}
+% ══════════════════════════════════════════════════════════════════════════
+
+A \emph{Latin square} of order~$n$ is an $n\times n$ array $L=(L_{ij})$
+whose entries belong to $\{1,\dots,n\}$ and in which every row and every
+column is a permutation of $\{1,\dots,n\}$.  Latin squares are
+fundamental objects in combinatorics with deep connections to algebra,
+coding theory, and experimental design~\cite{DK91,Wanless11}.  Determinant
+questions for Latin squares have also been studied from other viewpoints,
+including order-specific determinant calculations and determinant /
+permanent polynomials~\cite{FordJohnson96,DJW16}.
+
+Given a Latin square~$L$, the \emph{centered matrix}
+$E = L - \tfrac{n+1}{2}\,J$ (where $J$ is the all-ones matrix) satisfies
+$E\one=\mathbf{0}$ and $\one^T E=\mathbf{0}$, so $\rank(E)\le n-1$ and
+$E$ acts naturally on the hyperplane
+$\Vstd=\{x\in\mathbb{R}^n:\sum x_i=0\}$.  The Gram-projected
+matrix~$\Estd = P^TEP$ (where $P$ is the basis matrix of~$\Vstd$;
+see \Cref{sec:prelim}) carries algebraic information about
+the Latin square that is invisible to purely combinatorial invariants.
+
+In this paper we study the arithmetic of $\det(\Estd)$.  The main
+contributions are threefold.
+
+\begin{enumerate}[label=(\alph*),leftmargin=2em]
+  \item \emph{Unified divisibility.} For every Latin square of order
+        $n\ge 2$,
+        \[
+          \frac{n^2}{\gcd(n,2)} \;\Big|\; \det(\Estd).
+        \]
+        In particular, if $n$ is odd then the stronger divisibility
+        $n^2\mid\det(\Estd)$ holds universally (\Cref{cor:odd}).
+
+  \item \emph{Complete binary criterion.} The obstruction to
+        $n^2$-divisibility is entirely $2$-adic: every odd prime factor of
+        $n$ contributes its share unconditionally.  When
+        $n\equiv 2\pmod{4}$, the criterion is rank-theoretic:
+        \[
+          n^2\mid\det(\Estd)
+          \iff
+          \rank_{\FF_2}(A\bmod 2)<n-1.
+        \]
+        When $n\equiv 0\pmod{4}$, rank alone is not sufficient; the
+        complete criterion is the adjugate condition
+        \[
+          \adj(A\bmod 2)\cdot\one=\mathbf{0}
+          \quad\text{in }\FF_2^{n-1}.
+        \]
+        In both congruence classes, the parity pattern $L\bmod 2$ is a
+        complete invariant for the $n^2$-divisibility question.
+
+  \item \emph{Universal counterexamples.} For every
+        $n\equiv 2\pmod{4}$, $n\ge 6$, there exist Latin squares
+        violating $n^2$-divisibility
+        (\Cref{thm:universal-counterexamples}).  Concrete examples at
+        $n=6$ (exhaustive) and $n=10$ (constructed) are given in
+        \Cref{sec:counterexamples}.
+\end{enumerate}
+
+Secondary results include the constant row-weight theorem for $A\bmod 2$
+(\Cref{thm:row-weight}), the balanced realizability proposition
+(\Cref{prop:balanced-lift}), the sharp $p$-adic bounds via Smith normal
+form (\Cref{thm:sharp-v2,cor:sharp-vp}), and the cokernel computation for
+cyclic Latin squares (\Cref{cor:sandpile-cyclic}).
+
+The proof rests on two independent mechanisms.  The first is a geometric
+factor of~$n$ arising from the Gram matrix of the standard basis for~$\Vstd$.  The second is an arithmetic factor: the row sums of~$A$ are
+always divisible by~$n$ (when $n$ is odd) or by~$n/2$ (when $n$ is even),
+which forces $\det(A)$ to acquire a corresponding factor via the adjugate
+identity.  These two factors combine to yield the quadratic bound.
+
+The paper is organized as follows.  \Cref{sec:prelim} fixes notation and
+establishes the Gram factorization.  \Cref{sec:unified} proves the
+unified divisibility theorem.  \Cref{sec:parity} establishes the
+binary criterion: the rank characterization for $n\equiv 2\pmod{4}$,
+the adjugate criterion for $n\equiv 0\pmod{4}$, and the
+universality of counterexamples for all $n\equiv 2\pmod{4}$.
+\Cref{sec:structure} derives structural properties of $A\bmod 2$.
+\Cref{sec:snf} develops the Smith-normal-form and $p$-adic bounds.
+\Cref{sec:counterexamples} presents the counterexamples.
+\Cref{sec:computation} summarizes the computational methods.
+\Cref{sec:discussion} concludes with a summary, related directions, and
+open problems.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Preliminaries and notation}\label{sec:prelim}
+% ══════════════════════════════════════════════════════════════════════════
+
+Throughout, $L$ is an $n\times n$ Latin square with entries in
+$\{1,\dots,n\}$, indexed by $0\le i,j\le n-1$.
+For a prime~$p$ and a nonzero integer~$m$, we write $v_p(m)$ for the
+$p$-adic valuation; by convention, $v_p(0)=+\infty$.
+All $p$-adic lower bounds in this paper are therefore vacuously
+satisfied when $\det(A)=0$ (which can occur, e.g.\ at $n=4$).
+
+\begin{definition}[Centered matrix]
+Set $m=\frac{n+1}{2}$ and $E=L-mJ$.  The entries of~$E$ are half-integers
+when $n$ is even and integers when $n$ is odd.
+\end{definition}
+
+Since every row and column of~$L$ sums to $\frac{n(n+1)}{2}=nm$, we have
+$E\one=\mathbf{0}$ and $\one^T E=\mathbf{0}$.
+
+\begin{definition}[Standard representation]
+Let $\Vstd=\ker(\one^T)\subset\mathbb{R}^n$ and define
+the basis $b_i=e_i-e_{n-1}$ for $0\le i\le n-2$, where $e_i$ is the
+$i$-th standard unit vector.  The \emph{Gram matrix} is
+\[
+  G = P^T P, \qquad P = [b_0\mid\cdots\mid b_{n-2}] \in \mathbb{R}^{n\times(n-1)},
+\]
+so $G=I_{n-1}+J_{n-1}$ and $\det(G)=n$.
+\end{definition}
+
+\begin{definition}[Difference matrix]
+Define the $(n{-}1)\times(n{-}1)$ integer matrix
+\[
+  A_{ij} = L_{ij} - L_{i,\,n-1}, \qquad 0\le i,j\le n-2.
+\]
+\end{definition}
+
+\begin{lemma}[Gram factorization]\label{lem:gram}
+$\Estd = G\cdot A$, so $\det(\Estd)=n\cdot\det(A)$.
+\end{lemma}
+
+\begin{proof}
+Since $E\one=\mathbf{0}$, the operator $E$ maps $\Vstd$
+into itself.  Writing $EP=PA$, the first $n-1$ rows are verified
+entry-wise by
+\[
+  (EP)_{k,j}=E_{k,j}-E_{k,n-1}=L_{kj}-L_{k,n-1}=A_{kj}
+\]
+for $0\le k,j\le n-2$, since the $m$-terms cancel.  For the last row,
+use $\one^TE=\mathbf{0}^T$.  For each $0\le j\le n-2$,
+\[
+  (EP)_{n-1,j}=E_{n-1,j}-E_{n-1,n-1}
+  =-\sum_{r=0}^{n-2}(E_{rj}-E_{r,n-1})
+  =-\sum_{r=0}^{n-2}A_{rj}.
+\]
+This is exactly the last row of $PA$, since the last row of $P$ is
+$(-1,\dots,-1)$.  Thus $EP=PA$, and so we obtain
+$\Estd = P^TEP = P^TPA = GA$, whence
+$\det(\Estd)=\det(G)\det(A)=n\det(A)$.
+\end{proof}
+
+\begin{remark}\label{rem:objects}
+The factorization $\Estd = GA$ distinguishes two objects:
+\begin{itemize}[nosep]
+  \item $A$ is the coordinate matrix of $E|_{\Vstd}$ in the basis
+        $\{b_i\}$: it records the action $Eb_j = \sum_i A_{ij}\,b_i$.
+  \item $\Estd = GA$ is the Gram-projected matrix, with entries
+        $(\Estd)_{ij} = \langle b_i, Eb_j \rangle = (P^TEP)_{ij}$.
+\end{itemize}
+In particular, $\det(\Estd) = n\cdot\det(A)$, where the factor
+$n = \det(G)$ reflects the non-orthonormality of~$\{b_i\}$.
+The invariant $\det(A) \in \ZZ$ is the determinant of the
+\emph{operator} $E|_{\Vstd}$; $\det(\Estd)$ absorbs an additional
+geometric factor.  Both are studied in this paper; most divisibility
+statements are formulated for $\det(\Estd)$ and then equivalently
+expressed in terms of $\det(A)$.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{The unified divisibility theorem}\label{sec:unified}
+% ══════════════════════════════════════════════════════════════════════════
+
+\begin{lemma}[Row-sum identity]\label{lem:rowsum}
+For every $0\le i\le n-2$,
+\[
+  \sum_{j=0}^{n-2} A_{ij}
+  \;=\; \frac{n}{2}\bigl(n+1-2L_{i,\,n-1}\bigr).
+\]
+Write $c_i=n+1-2L_{i,\,n-1}$.
+\begin{itemize}
+  \item If $n$ is even, then $c_i$ is odd and $A\one=\frac{n}{2}\,\mathbf{c}$.
+  \item If $n$ is odd, then $c_i$ is even; writing $u_i=c_i/2\in\ZZ$,
+        one has $A\one=n\,\mathbf{u}$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+We compute
+\begin{align*}
+  \sum_{j=0}^{n-2} A_{ij}
+  &= \sum_{j=0}^{n-2}(L_{ij}-L_{i,n-1})
+  = \biggl(\sum_{j=0}^{n-1}L_{ij}\biggr) - L_{i,n-1} - (n-1)L_{i,n-1} \\
+  &= \frac{n(n+1)}{2} - nL_{i,n-1}
+  = \frac{n}{2}(n+1-2L_{i,n-1}).
+\end{align*}
+Since $2L_{i,n-1}$ is always even: if $n$ is even then $n+1$ is odd, so
+$c_i$ is odd; if $n$ is odd then $n+1$ is even, so $c_i$ is even and
+$u_i=c_i/2=(n+1-2L_{i,n-1})/2$ is an integer.
+\end{proof}
+
+\begin{theorem}[Unified divisibility]\label{thm:unified}
+For every Latin square $L$ of order $n\ge 2$,
+\[
+  \frac{n^2}{\gcd(n,2)} \;\Big|\; \det(\Estd).
+\]
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:gram}, $\det(\Estd)=n\det(A)$.  It suffices to show that
+$\frac{n}{\gcd(n,2)}\mid\det(A)$.  We treat odd and even~$n$ separately.
+
+\medskip\noindent\textbf{Case 1: $n$ odd.}  By \Cref{lem:rowsum}, every
+row sum of~$A$ is $\frac{n}{2}(n+1-2L_{i,n-1})$.  Since $n+1$ is even
+when $n$ is odd, $(n+1-2L_{i,n-1})/2$ is an integer, and so each row
+sum equals $n\cdot\bigl(\frac{n+1-2L_{i,n-1}}{2}\bigr)$.  Hence
+$A\one\equiv\mathbf{0}\pmod{n}$.  By the adjugate identity
+$\adj(A)\cdot A\one = \det(A)\cdot\one$, it follows that
+$n\mid\det(A)$.  Combined with $\det(\Estd)=n\det(A)$, we obtain
+$n^2\mid\det(\Estd)$.
+
+\medskip\noindent\textbf{Case 2: $n$ even.}  Set $h=n/2$.  By
+\Cref{lem:rowsum}, every row sum equals $h\cdot(\text{odd})$, so
+$A\one\equiv\mathbf{0}\pmod{h}$.  By the adjugate identity,
+$h\mid\det(A)$.  Therefore $\det(\Estd)=n\det(A)$ is divisible by
+$n\cdot h = n^2/2 = n^2/\gcd(n,2)$.
+\end{proof}
+
+\begin{corollary}\label{cor:odd}
+If $n$ is odd, then $n^2\mid\det(\Estd)$.
+\end{corollary}
+
+\begin{proof}
+This is Case~1 of \Cref{thm:unified}: each row sum of~$A$ is divisible
+by~$n$, so $n\mid\det(A)$ and $\det(\Estd)=n\det(A)$ is divisible by~$n^2$.
+\end{proof}
+
+\begin{remark}[Prime-by-prime decomposition]\label{rem:prime}
+Let $p$ be an odd prime dividing~$n$.  By \Cref{lem:rowsum},
+each row sum of~$A$ is divisible by~$n$ when $n$ is odd
+(since $A\one=n\,\mathbf{u}$) and by $n/2$ when $n$ is even
+(since $A\one=\frac{n}{2}\,\mathbf{c}$ with $c_i$ odd).
+In either case $v_p(n)\le v_p(\text{row sum})$, so
+$A\one\equiv\mathbf{0}\pmod{p^{v_p(n)}}$ and therefore
+$p^{v_p(n)}\mid\det(A)$.
+\end{remark}
+
+\begin{proposition}[Sharpness]\label{prop:sharp}
+The bound in \Cref{thm:unified} is sharp for $n\in\{2,6,8,10\}$.
+Specifically, there exist Latin squares satisfying
+$\frac{n^2}{2}\mid\det(\Estd)$ but $n^2\nmid\det(\Estd)$ at each
+of these orders.
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item For $n=2$, $\det(\Estd)=-2$ and $4\nmid -2$.
+  \item For $n=6$, there are exactly $576$ reduced Latin squares with
+        $18\mid\det(\Estd)$ but $36\nmid\det(\Estd)$
+        (\Cref{prop:n6}).
+  \item For $n=8$, explicit Jacobson--Matthews samples satisfy
+        $32\mid\det(\Estd)$ but $64\nmid\det(\Estd)$; all such squares
+        have $\dim\ker_{\FF_2}(A\bmod 2)=1$, explained by
+        the adjugate criterion (\Cref{thm:adjugate-criterion}).
+  \item For $n=10$, explicit Latin squares satisfy
+        $50\mid\det(\Estd)$ but $100\nmid\det(\Estd)$
+        (\Cref{prop:n10}).
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}\label{rem:n4}
+  At $n = 4$, exhaustive computation over all $576$ Latin squares shows
+  that $n^2 = 16$ divides $\det(\Estd)$ universally; the weaker bound
+  $n^2/2 = 8$ is therefore \emph{not} sharp at this order.
+  Whether $n = 4$ is the only even order where the bound can be
+  strengthened remains open.
+\end{remark}
+
+\begin{proof}
+Items (i), (ii), and (iv) are exhibited in \Cref{sec:counterexamples}.
+Item (iii): a sharpness witness at $n=8$ is the Latin square
+obtained from the first Jacobson--Matthews sample (with $5n^2 = 320$
+mixing steps, seed $= 0$) satisfying $\dim\ker_{\FF_2} = 1$; its
+determinant is verified by Bareiss elimination to satisfy $32 \mid
+\det(\Estd)$ but $64 \nmid \det(\Estd)$.
+\end{proof}
+
+\begin{remark}\label{rem:n8-sampling}
+In a corpus of $10\,000$ Jacobson--Matthews samples at $n = 8$
+($5n^2$ mixing steps each), approximately $11\%$ satisfy
+$32\mid\det(\Estd)$ but $64\nmid\det(\Estd)$.  This sampling frequency
+is not claimed as a rigorous proportion of all Latin squares of order~$8$.
+\end{remark}
+
+\begin{proposition}[Cyclic formula]\label{prop:cyclic}
+For the cyclic Latin square $L_{ij}=(i+j)\bmod n + 1$ of any
+order~$n\ge 2$:
+\[
+  \det(\Estd)_{\mathrm{cyc}} = (-1)^{\lfloor n/2\rfloor}\cdot n^{n-1}.
+\]
+In particular, $|\det(\Estd)|=n^{n-1}$, i.e.\ the exact exponent of~$n$
+dividing $\det(\Estd)$ is~$n{-}1$.
+(Singular Latin squares with $\det(A)=0$ exist already at $n=4$,
+so no absolute optimality claim is intended here.)
+\end{proposition}
+
+\begin{proof}
+The centered matrix~$E$ has entries
+$E_{ij}=(i{+}j)\bmod n - (n{-}1)/2 =: h\bigl((i{+}j)\bmod n\bigr)$
+and is real symmetric since $E_{ij}=E_{ji}$.  Because $E\one=\mathbf{0}$,
+the eigenvalues of~$A$ are all real
+(since $A=G^{-1}\Estd$ is similar to the real symmetric matrix
+$G^{-1/2}\Estd\,G^{-1/2}$), and $\det(A)=\prod \mu_k$.
+
+Since $E_{ij}$ depends only on $(i{+}j)\bmod n$ (a reverse-circulant
+or Hankel-circulant structure), the DFT vectors satisfy
+$Ev^{(k)}=\hat{h}(k)\,v^{(n-k)}$ for each $k=1,\dots,n-1$,
+where $v^{(k)}_j=\omega^{jk}$, $\omega=e^{2\pi i/n}$, and
+$\hat{h}(k)=\sum_{j=0}^{n-1}h(j)\,\omega^{jk}$.
+(The reversal $v^{(k)}\mapsto v^{(n-k)}$ arises because
+$(Mv^{(k)})_i = \sum_j h(i{+}j)\omega^{jk} =
+\omega^{-ik}\hat{h}(k) = \hat{h}(k)\,v^{(n-k)}_i$.)
+Evaluating explicitly: $h(j) = j - (n{-}1)/2$ for $j=0,\dots,n{-}1$
+gives $\hat{h}(k) = n/(\omega^k{-}1)$ for $k\neq 0$, since
+$\sum_{j=0}^{n-1}j\,\omega^{jk} = -n/(\omega^k{-}1)$
+and $\sum_{j}\omega^{jk}=0$.
+Writing $\hat{h}(k)=a_k+ib_k$ and passing to the real basis
+$u_k=\Re\,v^{(k)}$, $w_k=\Im\,v^{(k)}$, one finds (see Davis
+\cite{Davis94}, Chap.~3 for the general spectral theory of circulant
+and Hankel-circulant matrices) that
+$E$ acts on $\langle u_k,w_k\rangle$ by the matrix
+$\bigl[\begin{smallmatrix}a_k&b_k\\b_k&-a_k\end{smallmatrix}\bigr]$,
+whose eigenvalues are $\pm|\hat{h}(k)|=\pm n/|\omega^k{-}1|$---one
+positive and one negative.
+Since $v^{(n-k)}=\overline{v^{(k)}}$, the pair $\{k,n{-}k\}$
+shares the same real subspace $W_k=\langle u_k,w_k\rangle$,
+yielding $\lfloor(n{-}1)/2\rfloor$ two-dimensional blocks.
+When $n$ is even, the real vector
+$v^{(n/2)}=(1,-1,1,-1,\dots)\in\Vstd$ is an eigenvector with
+eigenvalue $\hat{h}(n/2)=n/(\omega^{n/2}{-}1)=-n/2<0$.
+
+\medskip\noindent\emph{Absolute value.}\;
+By the evaluation identity
+$\prod_{k=1}^{n-1}(1{-}\omega^k)=n$ (substitute $x=1$ in
+$(x^n{-}1)/(x{-}1)$),
+\[
+  |\!\det(A)|
+  =\prod_{k=1}^{n-1}|\hat h(k)|
+  =\frac{n^{n-1}}{\prod_{k=1}^{n-1}|\omega^k{-}1|}
+  =\frac{n^{n-1}}{n}=n^{n-2}.
+\]
+
+\medskip\noindent\emph{Sign.}\;
+The number of negative eigenvalues is $\lfloor(n{-}1)/2\rfloor$ (one
+per conjugate pair) plus~$1$ when $n$ is even (from $\hat h(n/2)<0$),
+totalling $\lfloor n/2\rfloor$.
+Hence $\det(A)=(-1)^{\lfloor n/2\rfloor}n^{n-2}$ and
+$\det(\Estd)=n\,\det(A)=(-1)^{\lfloor n/2\rfloor}n^{n-1}$.
+\end{proof}
+
+The cyclic determinant formula yields a complete description of the
+Smith normal form of~$A$ (see~\cite{Newman72} for general SNF theory)
+and, consequently, the \emph{cokernel}
+$K(A)\cong\ZZ^{n-1}/\mathrm{Im}(A)$
+(sometimes called the \emph{critical group} by analogy with graph
+Laplacians~\cite{Biggs99}; we avoid the term ``sandpile group''
+since~$A$ is not a Laplacian matrix).
+
+\begin{corollary}[Cokernel of cyclic Latin squares]\label{cor:sandpile-cyclic}
+For the cyclic Latin square of any order~$n\ge 2$, the reduced matrix~$A$
+has Smith normal form $\operatorname{diag}(1,n,n,\dots,n)$ with $n-2$
+copies of~$n$.  Equivalently,
+\[
+  K(A)_{\mathrm{cyc}} \;\cong\; (\ZZ/n\ZZ)^{n-2}.
+\]
+\end{corollary}
+
+\begin{proof}
+Write $A=R+n\Delta$ where $R_{ij}=j+1$ for all~$i,j$ (a rank-one
+integer matrix) and $\Delta$ is an integer matrix; this follows from
+$A_{ij}=(i{+}j)\bmod n - (i{+}n{-}1)\bmod n \equiv j+1\pmod{n}$.
+
+\medskip\noindent\textbf{Step 1 (Divisibility).}
+By multilinearity of the determinant in rows, every $k\times k$ minor
+of~$A$ expands as a sum over subsets~$S$ of the $k$ row indices, with
+each term carrying the factor~$n^{|S|}$ from the $\Delta$-rows.
+Since $R$ has identical rows, any term with $|S|\le k-2$ (i.e.,
+${\ge}\,2$ rows from~$R$) vanishes.  Hence every $k\times k$ minor is
+divisible by~$n^{k-1}$, so the $k$-th determinantal
+divisor~$\Delta_k\coloneqq\gcd$~of all $k\times k$ minors satisfies
+$n^{k-1}\mid\Delta_k$.
+
+\medskip\noindent\textbf{Step 2 (Tightness).}
+Since $\gcd(A_{0,0},\dots,A_{0,n-2})=\gcd(1{-}n,\dots,-1)=1$,
+we have $\Delta_1=1$.
+By \Cref{prop:cyclic},
+$|\det A|=n^{n-2}$, so $\Delta_{n-1}=n^{n-2}$.
+
+\medskip\noindent\textbf{Step 3 (Pigeonhole).}
+The invariant factors $d_k=\Delta_k/\Delta_{k-1}$ satisfy $d_1=1$ and
+$d_2\mid d_3\mid\cdots\mid d_{n-1}$ with $\prod_{k=2}^{n-1}d_k
+=n^{n-2}$.  For $k=2$, Step~1 gives $n\mid\Delta_2=d_1 d_2=d_2$,
+so $d_2\ge n$.  The product bound yields $d_2^{n-2}\le n^{n-2}$,
+hence $d_2=n$.  Since $d_3\mid\cdots\mid d_{n-1}$ with
+product~$n^{n-3}$ and each $d_k\ge d_2=n$, the same squeeze
+gives $d_k=n$ for all $k\ge 2$ by induction.
+\end{proof}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{The binary criterion: rank and adjugate}\label{sec:parity}
+% ══════════════════════════════════════════════════════════════════════════
+
+In this section we restrict to \emph{even} $n$ and study when the
+stronger divisibility $n^2\mid\det(\Estd)$ holds.  The characterization
+is complete for $n\equiv 2\pmod{4}$ via the $\FF_2$-rank; for
+$n\equiv 0\pmod{4}$, a subtler adjugate criterion resolves the question.
+
+\begin{definition}[Parity pattern]
+The \emph{parity pattern} of~$L$ is the binary matrix
+$\mathcal{P}=L\bmod 2 \in \FF_2^{n\times n}$.  Since each row and column
+of~$L$ is a permutation of $\{1,\dots,n\}$ and $n$ is even, each row and
+column of~$\mathcal{P}$ contains exactly $n/2$ ones and $n/2$ zeros.
+We call such a matrix \emph{doubly balanced}.
+\end{definition}
+
+\begin{lemma}\label{lem:Amod2}
+Over $\FF_2$:
+\[
+  (A\bmod 2)_{ij}
+  = \mathcal{P}_{ij}\oplus\mathcal{P}_{i,\,n-1},
+  \qquad 0\le i,j\le n-2,
+\]
+where $\oplus$ denotes addition in~$\FF_2$.  In particular, $A\bmod 2$
+depends only on~$\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+$A_{ij}=L_{ij}-L_{i,n-1}$, and subtraction coincides with addition
+over~$\FF_2$.
+\end{proof}
+
+\begin{theorem}[$\FF_2$-rank characterization]\label{thm:F2-characterization}
+Let $n\equiv 2\pmod{4}$.  Then:
+\[
+  n^2\mid\det(\Estd)
+  \;\;\Longleftrightarrow\;\;
+  \rank_{\FF_2}(A\bmod 2) < n-1.
+\]
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:gram}, $n^2\mid\det(\Estd)$ iff $n\mid\det(A)$.  Write
+$n=2q$ with $q$ odd (since $v_2(n)=1$).
+
+\medskip\noindent
+\emph{Odd prime factors.}  For every odd prime $p\mid n$,
+$p^{v_p(n)}\mid\det(A)$
+holds universally by \Cref{rem:prime}.  This accounts for the full
+odd part~$q$ of~$n$.
+
+\medskip\noindent
+\emph{The prime $2$.}  It remains to show $2\mid\det(A)$.  We already
+know $h\mid\det(A)$ from \Cref{thm:unified}, where $h=n/2=q$ is odd.
+Thus $q\mid\det(A)$ and the question reduces to whether
+$2\mid\det(A)$:
+\[
+  n\mid\det(A)
+  \;\;\Longleftrightarrow\;\;
+  2\mid\det(A)
+  \;\;\Longleftrightarrow\;\;
+  \det(A\bmod 2)=0
+  \;\;\Longleftrightarrow\;\;
+  \rank_{\FF_2}(A\bmod 2)<n-1.
+\]
+The second equivalence uses $\det(A)\bmod 2 = \det(A\bmod 2)$ over~$\FF_2$.
+\end{proof}
+
+\begin{remark}[$n\equiv 0\pmod{4}$: the F$_2$-rank is necessary but
+not sufficient]\label{cor:4k-kernel}
+When $n\equiv 0\pmod{4}$, $h=n/2$ is even.  By \Cref{lem:rowsum}, every
+row sum of~$A$ equals $h\cdot(\text{odd})$, which is even.  Hence
+$A\one\equiv\mathbf{0}\pmod{2}$, i.e.\
+$\one\in\ker_{\FF_2}(A\bmod 2)$, so $\rank_{\FF_2}(A\bmod 2)\le n-2$
+and $2\mid\det(A)$ unconditionally.  However, for $n^2\mid\det(\Estd)$
+one needs $2^a\mid\det(A)$ where $a=v_2(n)\ge 2$, and the rank
+condition provides only one factor of~$2$ beyond the $2^{a-1}$ already
+guaranteed by $h\mid\det(A)$.  Indeed,
+for $n=8$, approximately $11\%$ of Jacobson--Matthews samples achieve
+$v_2(\det\Estd)=5=2v_2(n)-1$, so that
+$\frac{n^2}{2}\mid\det(\Estd)$ but $n^2\nmid\det(\Estd)$.
+A sufficient condition for $n^2\mid\det(\Estd)$ when
+$n\equiv 0\pmod{4}$ is $\dim\ker_{\FF_2}(A\bmod 2)\ge 2$
+(\Cref{thm:4k-sufficient}); a complete characterization is given by
+\Cref{thm:adjugate-criterion}.
+\end{remark}
+
+\begin{corollary}\label{cor:2mod4}
+If $n\equiv 2\pmod{4}$, then $\one\notin\ker_{\FF_2}(A\bmod 2)$.
+In particular, the kernel mechanism of \Cref{cor:4k-kernel} is absent,
+and whether $n^2\mid\det(\Estd)$ depends on the specific Latin square.
+\end{corollary}
+
+\begin{proof}
+When $n\equiv 2\pmod{4}$, $h=n/2$ is odd, so each row sum
+$h\cdot(\text{odd})$ is odd.  Hence $(A\bmod 2)\one=\one\ne\mathbf{0}$
+over~$\FF_2$.
+\end{proof}
+
+\begin{remark}
+For $n\equiv 2\pmod{4}$, \Cref{thm:F2-characterization} together with
+\Cref{lem:Amod2} shows that the parity pattern $\mathcal{P}=L\bmod 2$
+is a \emph{complete invariant} for the $n^2$-divisibility question: two
+Latin squares sharing the same parity pattern either both satisfy
+$n^2\mid\det(\Estd)$, or neither does.
+
+This was verified exhaustively at $n=6$: among $1252$ distinct parity
+patterns arising from the $9408$ reduced Latin squares, every Latin square
+with a given pattern yields the same $\FF_2$-rank for~$A\bmod 2$, with
+zero exceptions.
+\end{remark}
+
+We now resolve the case $n\equiv 0\pmod{4}$.
+
+\begin{theorem}[Adjugate criterion for $n\equiv 0\pmod{4}$]\label{thm:adjugate-criterion}
+Let $n\equiv 0\pmod{4}$ and set $B=A\bmod 2\in\FF_2^{(n-1)\times(n-1)}$.
+Then
+\[
+  n^2\mid\det(\Estd)
+  \;\;\Longleftrightarrow\;\;
+  \adj(B)\cdot\one = \mathbf{0} \quad\text{in } \FF_2^{n-1}.
+\]
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:gram}, $n^2\mid\det(\Estd)$ iff $n\mid\det(A)$.
+Set $h=n/2$.  By \Cref{thm:unified}, $h\mid\det(A)$; write
+$\det(A)=hq$ with $q\in\ZZ$.  Then $n\mid\det(A)$ iff $2\mid q$.
+
+\medskip\noindent\emph{Step 1.}
+From the adjugate identity $\det(A)\cdot\one = \adj(A)\cdot A\one$
+and $A\one = h\,\mathbf{c}$ (\Cref{lem:rowsum}), where
+$c_i = n+1-2L_{i,n-1}$ is always odd, we obtain
+\[
+  q\cdot\one = \adj(A)\cdot\mathbf{c}.
+\]
+
+\medskip\noindent\emph{Step 2.}
+Reduce modulo~$2$.  Since every~$c_i$ is odd,
+$\mathbf{c}\equiv\one\pmod{2}$.  Since the determinant is polynomial
+in the matrix entries, $\adj(A)\bmod 2 = \adj(A\bmod 2) = \adj(B)$.
+Hence
+\[
+  q \bmod 2 \;=\; [\adj(B)\cdot\one]_i  \qquad\text{for every } i,
+\]
+and $2\mid q$ iff $\adj(B)\cdot\one = \mathbf{0}$ in~$\FF_2^{n-1}$.
+\end{proof}
+
+\begin{corollary}[Left-kernel parity criterion]\label{cor:left-kernel}
+Let $n\equiv 0\pmod{4}$ and $B=A\bmod 2$ with
+$\dim\ker_{\FF_2}(B)=1$.  Let $\lambda\in\FF_2^{n-1}$ generate
+$\ker(B^T)$.  Then
+\[
+  n^2\mid\det(\Estd)
+  \;\;\Longleftrightarrow\;\;
+  \wt(\lambda)\equiv 0\pmod{2}.
+\]
+\end{corollary}
+
+\begin{proof}
+Since $\rank(B)=n{-}2$ and $B\one=\mathbf{0}$ (so
+$\ker(B)=\operatorname{span}\{\one\}$), every column of $\adj(B)$
+lies in $\ker(B)=\operatorname{span}\{\one\}$ and every row in
+$\ker(B^T)=\operatorname{span}\{\lambda\}$.
+Since $\adj(B)\ne 0$ (at least one $(n{-}2)\times(n{-}2)$ minor is
+nonzero), we have $\adj(B)=\one\cdot\lambda^T$.
+Hence $\adj(B)\cdot\one=(\lambda^T\one)\cdot\one$, which
+vanishes iff $\wt(\lambda)$ is even.
+The result follows from \Cref{thm:adjugate-criterion}.
+\end{proof}
+
+\begin{remark}[Special cases of the adjugate criterion]\label{rem:adjugate-special}
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item If $\dim\ker_{\FF_2}(B)\ge 2$, then $\adj(B)=0$ and the
+        criterion holds automatically, recovering
+        \Cref{thm:4k-sufficient}.
+  \item As a consistency check, \Cref{cor:left-kernel} was tested on
+        $347$ Jacobson--Matthews samples with $\dim\ker=1$
+        at $n=8,12,16$; no misclassifications were found.
+\end{enumerate}
+\end{remark}
+
+\begin{example}\label{ex:adj-n8}
+For a Latin square~$L$ of order~$8$ with rows
+$(4,3,6,8,5,7,2,1)$, $(2,7,4,1,6,8,3,5)$,
+$(8,5,3,4,1,6,7,2)$, $(5,1,7,3,2,4,6,8)$,
+$(3,8,2,6,7,5,1,4)$, $(7,6,8,2,4,1,5,3)$,
+$(6,2,1,5,8,3,4,7)$, $(1,4,5,7,3,2,8,6)$,
+the difference matrix $B=A\bmod 2\in\FF_2^{7\times 7}$
+has $\rank_{\FF_2}(B)=6$,
+so $\dim\ker_{\FF_2}(B)=1$ and \Cref{thm:adjugate-criterion} applies.
+Computing $\adj(B)\cdot\one=\one\neq\mathbf{0}$, the criterion
+predicts $64\nmid\det(\Estd)$.
+Direct computation confirms: $\det(A)=-245{,}244$
+with $v_2(\det(A))=2$, hence
+$v_2(\det(\Estd))=v_2(8\cdot\det(A))=5<6=v_2(64)$.
+\end{example}
+
+\begin{corollary}[Parity pattern completeness]\label{cor:parity-complete}
+For every even~$n$, the question $n^2\mid\det(\Estd)$ depends only on
+the parity pattern $\mathcal{P}=L\bmod 2$.
+\end{corollary}
+
+\begin{proof}
+For $n\equiv 2\pmod{4}$, this follows from
+\Cref{thm:F2-characterization,lem:Amod2}.
+For $n\equiv 0\pmod{4}$, \Cref{thm:adjugate-criterion} involves
+only $B=A\bmod 2$, which depends on~$\mathcal{P}$
+by \Cref{lem:Amod2}.
+\end{proof}
+
+\subsection{Universal counterexamples in the 2 mod 4 case}
+
+The $\FF_2$-rank characterization (\Cref{thm:F2-characterization})
+reduces the question of counterexample existence to finding doubly
+balanced binary matrices with full $\FF_2$-rank.  We now prove that
+such counterexamples exist for every $n\equiv 2\pmod{4}$, $n\ge 6$.
+
+\begin{proposition}[Balanced realizability]\label{prop:balanced-lift}
+Let $n$ be even.  Every doubly balanced binary matrix
+$\mathcal{P}\in\FF_2^{n\times n}$ is the parity pattern of some Latin
+square of order~$n$.
+\end{proposition}
+
+\begin{proof}
+Since every row and column of~$\mathcal{P}$ has exactly $n/2$ ones,
+the bipartite graph~$G$ with biadjacency matrix~$\mathcal{P}$ is
+$(n/2)$-regular.  By K\"onig's edge-coloring theorem~\cite{Konig16},
+$G$ decomposes into $n/2$ perfect matchings $M_1,\dots,M_{n/2}$.
+Assign to the edges of~$M_r$ the odd symbol $2r-1$
+(for $r=1,\dots,n/2$).  Similarly, the complement
+$J-\mathcal{P}$ defines an $(n/2)$-regular bipartite graph that
+decomposes into $n/2$ perfect matchings $M'_1,\dots,M'_{n/2}$;
+assign to the edges of~$M'_s$ the even symbol~$2s$
+(for $s=1,\dots,n/2$).  The resulting $n\times n$ array~$L$ is a Latin
+square (each row and column receives exactly one label from each
+matching), and $L\bmod 2 = \mathcal{P}$.
+\end{proof}
+
+\begin{lemma}[Rank bridge]\label{lem:rank-bridge}
+Let $n\equiv 2\pmod{4}$, and let
+$\mathcal{P}\in\FF_2^{n\times n}$ be doubly balanced.  Define
+$B\in\FF_2^{(n-1)\times(n-1)}$ by
+$B_{ij}=\mathcal{P}_{ij}\oplus\mathcal{P}_{i,n-1}$ for
+$0\le i,j\le n-2$.  Then
+\[
+  \rank_{\FF_2}(B) = \rank_{\FF_2}(\mathcal{P}) - 1.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $n/2$ is odd, every row and column sum of~$\mathcal{P}$ equals
+$n/2\equiv 1\pmod{2}$, so $\mathcal{P}\one=\one$ and
+$\one^T\mathcal{P}=\one^T$ over~$\FF_2$.
+
+Let $E=\{y\in\FF_2^n:\one^Ty=0\}$; then $\mathcal{P}$ maps $E$ to~$E$
+(since $\one^T(\mathcal{P}y)=\one^Ty=0$ for $y\in E$).
+Define $T\colon\FF_2^{n-1}\to\FF_2^n$ by $(T(x))_j=x_j$ for
+$j\le n-2$ and $(T(x))_{n-1}=\one^Tx$ (i.e.\ the last coordinate
+is the parity of the first $n-1$).  Then $T$ is an isomorphism
+$\FF_2^{n-1}\xrightarrow{\sim} E$.  A direct computation shows that
+$T^{-1}\mathcal{P}\,T = B$ (the $(i,j)$-entry of
+$T^{-1}\mathcal{P}\,T$ is
+$\mathcal{P}_{ij}\oplus\mathcal{P}_{i,n-1}=B_{ij}$).
+Therefore $\rank(B)=\rank(\mathcal{P}|_E)$.
+
+Since $\mathcal{P}\one=\one\ne\mathbf{0}$, the vector~$\one$ is not in
+$\ker(\mathcal{P})$, so $\ker(\mathcal{P})$ is entirely contained
+in~$E$.  Thus $\dim\ker(\mathcal{P}|_E)=\dim\ker(\mathcal{P})$ and
+\[
+  \rank(B)=\dim E - \dim\ker(\mathcal{P})
+  = (n-1)-(n-\rank(\mathcal{P}))
+  = \rank(\mathcal{P})-1. \qedhere
+\]
+\end{proof}
+
+\begin{theorem}[Universal counterexamples for $n\equiv 2\pmod{4}$]\label{thm:universal-counterexamples}
+For every $n\equiv 2\pmod{4}$, $n\ge 6$, there exists a Latin
+square~$L$ of order~$n$ such that $n^2\nmid\det(\Estd)$.
+
+More precisely, let $n=2k$ with $k\ge 3$ odd, and define
+\[
+  S_n = \{0,1,\dots,k-2,k\}\subseteq\ZZ_n.
+\]
+Then the circulant parity pattern~$\mathcal{P}_{S_n}$
+(with $(\mathcal{P}_{S_n})_{ij}=\mathbf{1}_{(j-i)\bmod n\in S_n}$)
+is doubly balanced, lifts to a Latin square by
+\Cref{prop:balanced-lift}, and satisfies
+$\rank_{\FF_2}(\mathcal{P}_{S_n})=n$.  By
+\Cref{lem:rank-bridge}, $\rank_{\FF_2}(A\bmod 2)=n-1$, and by
+\Cref{thm:F2-characterization}, $n^2\nmid\det(\Estd)$.
+\end{theorem}
+
+\begin{proof}
+Since $|S_n|=k=n/2$, the circulant~$\mathcal{P}_{S_n}$ has exactly
+$n/2$ ones in every row and column, so it is doubly balanced.
+By the standard circulant criterion over~$\FF_2$,
+$\mathcal{P}_{S_n}$ is invertible if and only if
+\[
+  \gcd\bigl(f_n(x),\,x^n-1\bigr)=1,
+\]
+where $f_n(x)=\sum_{s\in S_n}x^s = 1+x+\cdots+x^{k-2}+x^k$ is the
+indicator polynomial.  Since $\operatorname{char}\FF_2=2$ and $n=2k$,
+\[
+  x^n-1 = x^n+1 = (x^k+1)^2,
+\]
+so it suffices to show $\gcd(f_n,\,x^k+1)=1$.
+
+Suppose $\alpha$ is a root of $x^k+1$ in the algebraic closure
+$\overline{\FF}_2$, i.e.\ $\alpha^k=1$.
+
+\smallskip\noindent
+\emph{Case $\alpha=1$.}\;
+$f_n(1)=|S_n|=k\equiv 1\pmod{2}$ (since $k$ is odd), so
+$f_n(1)\ne 0$.
+
+\smallskip\noindent
+\emph{Case $\alpha\ne 1$.}\;
+Observe that
+\[
+  (x+1)\,f_n(x) = 1+ x^{k-1}+x^k+x^{k+1},
+\]
+which is verified by expanding
+$(x+1)(1+x+\cdots+x^{k-2}+x^k)$ over~$\FF_2$.
+Evaluating at~$\alpha$ with $\alpha^k=1$:
+\[
+  (\alpha+1)\,f_n(\alpha)
+  = 1+\alpha^{k-1}+\alpha^k+\alpha^{k+1}
+  = 1+\alpha^{-1}+1+\alpha
+  = \alpha^{-1}+\alpha.
+\]
+If $f_n(\alpha)=0$ then $\alpha^{-1}+\alpha=0$, i.e.\
+$\alpha^2=1$, whence $\alpha=1$ (the only solution in
+characteristic~$2$), contradicting $\alpha\ne 1$.
+
+\medskip
+Therefore $\gcd(f_n,x^k+1)=1$, so $\mathcal{P}_{S_n}$ is invertible
+over~$\FF_2$, i.e.\ $\rank_{\FF_2}(\mathcal{P}_{S_n})=n$.
+By \Cref{lem:rank-bridge},
+$\rank_{\FF_2}(B)=n-1$ where $B=A\bmod 2$ (\Cref{lem:Amod2}).
+\Cref{thm:F2-characterization} then gives
+$n^2\nmid\det(\Estd)$.
+\end{proof}
+
+\begin{remark}\label{rem:skip-one}
+The skip-one family~$S_n$ was originally identified by exhaustive search
+over all cyclic subsets $S\subseteq\ZZ_n$ with $|S|=n/2$, and verified
+computationally to give full $\FF_2$-rank for all
+$n\equiv 2\pmod{4}$ up to $n=198$ ($49$~values).
+The algebraic proof above shows the family works for all such~$n$.
+
+Witness determinant values from one specific lift (via the perfect
+matching decomposition of \Cref{prop:balanced-lift}) are non-canonical:
+different matching decompositions may produce different Latin squares
+with the same parity pattern, and hence different determinant values.
+However, the $\FF_2$-rank---and therefore the counterexample
+property---depends only on the parity pattern
+(\Cref{cor:parity-complete}).
+\end{remark}
+
+\begin{remark}[Consecutive interval degeneration]\label{rem:consecutive}
+The complementary choice $T_n=\{0,1,\dots,k-1\}$ (a consecutive
+interval) always yields $\rank_{\FF_2}(\mathcal{P}_{T_n})=n/2$,
+the minimum possible for a doubly balanced circulant.  This is because
+the indicator polynomial $g(x)=1+x+\cdots+x^{k-1}=(x^k+1)/(x+1)$
+divides $x^k+1$ over~$\FF_2$, so
+$\gcd(g,x^{2k}+1)=(x^k+1)/(x+1)$ has degree $k-1$, and the rank
+drops by $k-1$.  The skip-one modification $S_n=T_n\setminus\{k-1\}\cup
+\{k\}$ breaks this divisibility and restores full rank.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Structural properties of A mod 2}\label{sec:structure}
+% ══════════════════════════════════════════════════════════════════════════
+
+In this section we derive finer structural results about the binary
+matrix $A\bmod 2$.
+
+\begin{theorem}[Constant row weight]\label{thm:row-weight}
+Let $n$ be even and let $\mathcal{P}=L\bmod 2$ be doubly balanced
+(i.e.\ every row and column of~$\mathcal{P}$ has exactly $n/2$ ones).
+Then every row of $A\bmod 2$ has Hamming weight exactly~$n/2$.
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:Amod2}, $(A\bmod 2)_{ij}=\mathcal{P}_{ij}\oplus\mathcal{P}_{i,n-1}$
+for $0\le j\le n-2$.  Fix a row $i$.  Since $\mathcal{P}$ is doubly
+balanced, row~$i$ of~$\mathcal{P}$ has exactly $n/2$ ones among
+its~$n$ entries.
+
+\smallskip\noindent
+\emph{Case $\mathcal{P}_{i,n-1}=1$.}  Then $(A\bmod 2)_{ij}=1$ iff
+$\mathcal{P}_{ij}=0$.  Among the first $n-1$ columns, the number of zeros
+is $(n-1)-(n/2-1)=n/2$ (subtracting the $n/2-1$ ones from columns
+$0,\dots,n-2$ given that one of the $n/2$ total ones is in column~$n-1$).
+Hence $\wt(\text{row }i)=n/2$.
+
+\smallskip\noindent
+\emph{Case $\mathcal{P}_{i,n-1}=0$.}  Then $(A\bmod 2)_{ij}=1$ iff
+$\mathcal{P}_{ij}=1$.  All $n/2$ ones of row~$i$ lie in columns
+$0,\dots,n-2$.  Hence $\wt(\text{row }i)=n/2$.
+\end{proof}
+
+\begin{remark}
+The column weights of $A\bmod 2$ are \emph{not} constant in general.
+Column~$j$ has weight $|\{i<n-1:\mathcal{P}_{ij}\ne\mathcal{P}_{i,n-1}\}|$,
+which depends on the correlation between columns~$j$ and~$n-1$
+of~$\mathcal{P}$.  This asymmetry arises because the definition of~$A$
+privileges the last column.
+\end{remark}
+
+The rows of~$\mathcal{P}$ form a constant-weight-$(n/2)$ binary code
+of length~$n$.  The following result shows that a simple combinatorial
+property of this code---the existence of a pair of rows with disjoint
+supports---forces a rank deficit.
+
+\begin{proposition}[Disjoint-support obstruction]\label{prop:disjoint-pair}
+Let $n\equiv 2\pmod{4}$ and let $\mathcal{P}\in\{0,1\}^{n\times n}$
+be doubly balanced (all row and column sums equal to $k=n/2$).
+If $\mathcal{P}$ has two rows with disjoint supports, then
+$\rank_{\FF_2}(\mathcal{P})\le n-1$.
+\end{proposition}
+
+\begin{proof}
+Since $k$ is odd, each of the $n$ column sums equals $k\equiv 1\pmod2$,
+so over~$\FF_2$ the sum of all rows is
+$\sum_{\ell=1}^{n}r_\ell=\one$.
+If rows~$r_i$ and~$r_j$ have disjoint supports of size $k$ each
+with $2k=n$, then $r_i+r_j=\one$ over~$\FF_2$.  Substituting:
+$\sum_{\ell\ne i,j}r_\ell = \mathbf{0},$
+which is a nontrivial linear dependency among $n-2\ge 4$ rows.
+Hence $\rank_{\FF_2}(\mathcal{P})\le n-1$.
+\end{proof}
+
+\begin{remark}\label{rem:disjoint-n6}
+The converse of \Cref{prop:disjoint-pair} holds at $n=6$ but fails
+for $n\ge 10$; see \Cref{prop:n6-orbits,rem:n10-converse} below.
+\end{remark}
+
+\begin{theorem}[Odd-prime kernel membership]\label{thm:odd-prime-kernel}
+Let $p$ be an odd prime dividing~$n$.  Then
+$\one\in\ker(A\bmod p)$, and consequently $p\mid\det(A)$.
+\end{theorem}
+
+\begin{proof}
+By \Cref{lem:rowsum}, $(A\one)_i = \frac{n}{2}(n+1-2L_{i,n-1})$.
+Since $p\mid n$ and $\gcd(p,2)=1$, we have $p\mid\frac{n}{2}\cdot(\ldots)$
+(indeed $p\mid n$ implies $p\mid(A\one)_i$).  Thus
+$A\one\equiv\mathbf{0}\pmod{p}$.  By the adjugate identity
+$\det(A)\cdot\one = \adj(A)\cdot A\one$, it follows that
+$p\mid\det(A)$.
+\end{proof}
+
+\begin{corollary}[Exact prime structure of the obstruction]\label{cor:obstruction}
+The divisibility $n^2\mid\det(\Estd)$ can fail \emph{only} at the
+prime~$2$.  For all odd prime factors of~$n$, the required divisibility
+is guaranteed unconditionally.  When $n\equiv 2\pmod{4}$,
+$n^2\mid\det(\Estd)$ holds iff $\rank_{\FF_2}(A\bmod 2)<n-1$
+(\Cref{thm:F2-characterization}); this can fail for any such~$n$.
+When $n\equiv 0\pmod{4}$, $\rank_{\FF_2}(A\bmod 2)<n-1$ holds
+universally but does not suffice for $n^2$-divisibility;
+the complete criterion is $\adj(A\bmod 2)\cdot\one=\mathbf{0}$
+(\Cref{thm:adjugate-criterion}).
+\end{corollary}
+
+\begin{theorem}[Sufficient condition for $n\equiv 0\pmod{4}$]\label{thm:4k-sufficient}
+Let $n$ be even.  If\/ $\dim\ker_{\FF_2}(A\bmod 2)\ge 2$, then
+$n^2\mid\det(\Estd)$.
+\end{theorem}
+
+\begin{proof}
+By \Cref{thm:unified}, $h=n/2$ divides $\det(A)$.
+Write $\det(A)=hq$ with $q\in\ZZ$.  It suffices to show
+$2\mid q$, since then $\det(A)\equiv 0\pmod{2h}=0\pmod{n}$
+and $\det(\Estd)=n\det(A)\equiv 0\pmod{n^2}$.
+
+By the adjugate identity applied to~$\one$:
+\[
+  \det(A)\cdot\one = \adj(A)\cdot A\one = h\,\adj(A)\cdot\mathbf{c},
+\]
+where $c_i=n+1-2L_{i,n-1}$ are all odd (\Cref{lem:rowsum}).
+Hence $q = [\adj(A)\cdot\mathbf{c}]_i$ for any~$i$.
+
+Set $B = A\bmod 2$.  Since $\dim\ker_{\FF_2}(B)\ge 2$,
+$\rank_{\FF_2}(B)\le n-3$.  Every $(n{-}2)\times(n{-}2)$ submatrix of~$B$
+has rank at most $n-3<n-2$, so every $(n{-}2)\times(n{-}2)$ minor of~$B$
+vanishes over~$\FF_2$.  Since the entries of~$\adj(A)$ are (up to
+sign) such minors, and $\det(M)\bmod 2=\det(M\bmod 2)$, we conclude
+$\adj(A)\equiv 0\pmod{2}$.  Therefore
+$q=[\adj(A)\cdot\mathbf{c}]_i\equiv 0\pmod{2}$.
+\end{proof}
+
+\begin{remark}
+For $n\equiv 0\pmod{4}$, the condition $\dim\ker_{\FF_2}(B)\ge 2$
+reduces to: \emph{does $\ker_{\FF_2}(A\bmod 2)$ contain a vector
+linearly independent from~$\one$?}  This is sufficient but not
+necessary: at $n=8$, approximately $73\%$ of Jacobson--Matthews
+samples with $\dim\ker=1$ (the minimum) still satisfy $8\mid\det(A)$.
+The complete criterion is given by
+\Cref{thm:adjugate-criterion}.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Smith normal form and $p$-adic bounds}\label{sec:snf}
+% ══════════════════════════════════════════════════════════════════════════
+
+The adjugate argument in the proof of \Cref{thm:4k-sufficient}
+combines with the Smith normal form to yield a sharper result.
+
+\begin{theorem}[$2$-adic lower bound]\label{thm:sharp-v2}
+Let $n$ be even and let $k=\dim\ker_{\FF_2}(A\bmod 2)$.  Then
+\[
+  v_2(\det A)\;\ge\; v_2(n/2)+\max(0,\,k-1),
+\]
+where $v_2(m)$ denotes the $2$-adic valuation of~$m$.
+\end{theorem}
+
+\begin{proof}
+If $\det(A)=0$, then $v_2(\det A)=+\infty$ by convention, so there is
+nothing to prove.  Hence assume $\det(A)\neq 0$, and set $h=n/2$.
+
+Let $d_1\mid d_2\mid\cdots\mid d_{n-1}$ be the invariant factors
+(Smith normal form) of~$A$ over~$\ZZ$.
+By standard SNF theory~\cite{Newman72}, the number of invariant
+factors divisible by~$2$ equals $\dim\ker_{\FF_2}(A\bmod 2)=k$;
+these are the last~$k$ factors $d_{n-k},\ldots,d_{n-1}$.
+
+\medskip\noindent\textbf{Key claim:} $v_2(d_{n-1})\ge v_2(h)$.
+
+\smallskip\noindent
+Let $\Delta_{n-2}=\gcd$ of all $(n{-}2)\times(n{-}2)$ minors of~$A$
+(the $(n{-}2)$-th determinantal divisor), so that
+$d_{n-1}=\det(A)/\Delta_{n-2}$.
+The entries of $\adj(A)$ are, up to sign, these $(n{-}2)\times(n{-}2)$
+minors of~$A$, so $\Delta_{n-2}\mid\adj(A)_{ij}$ for all~$i,j$.
+Write $\adj(A)=\Delta_{n-2}\,Q$ with $\gcd(Q_{ij})=1$.
+
+From the adjugate identity $\det(A)\cdot\one=\adj(A)\cdot A\one
+=h\,\adj(A)\,\mathbf{c}=h\,\Delta_{n-2}\,Q\,\mathbf{c}$,
+we obtain
+\[
+  d_{n-1}=\frac{\det(A)}{\Delta_{n-2}}=h\,(Q\,\mathbf{c})_i
+  \quad\text{for each }i,
+\]
+so $h\mid d_{n-1}$ and $v_2(d_{n-1})\ge v_2(h)$.
+
+\medskip\noindent\textbf{Conclusion.}
+If $k=0$ then $v_2(\det A)\ge v_2(h)+0$ is just \Cref{thm:unified}.
+For $k\ge 1$, the $k$ even factors satisfy
+$v_2(d_{n-k})\le\cdots\le v_2(d_{n-1})$ by the divisibility chain.
+The last factor contributes $v_2(d_{n-1})\ge v_2(h)$ and the remaining
+$k-1$ factors each contribute $v_2\ge 1$, giving
+\[
+  v_2(\det A)=\sum_{i:\,2\mid d_i}v_2(d_i)
+  \;\ge\; v_2(h)+(k-1).  \qedhere
+\]
+\end{proof}
+
+\begin{remark}
+The bound of \Cref{thm:sharp-v2} is consistent with every observed
+kernel dimension at $n=8,12,16$: equality is attained at each
+value of~$k$ realized by Jacobson--Matthews sampling.
+\end{remark}
+
+The proof above uses nothing specific to $p=2$: the row-sum identity,
+the adjugate divisibility, and the SNF pigeonhole all hold at every
+prime.  The only subtlety is that, for $n$ odd, the effective row-sum
+eigenvalue is $h=n$ rather than $h=n/2$ (\Cref{lem:rowsum}).
+
+\begin{corollary}[General $p$-adic lower bound]\label{cor:sharp-vp}
+Let $p$ be any prime dividing~$n$, and let
+$k_p=\dim\ker_{\FF_p}(A\bmod p)$.
+\begin{itemize}
+  \item If $n$ is even, then
+    $\displaystyle v_p(\det A)\;\ge\; v_p(n/2)+\max(0,\,k_p-1).$
+  \item If $n$ is odd (so $p$ is necessarily odd), then
+    $\displaystyle v_p(\det A)\;\ge\; v_p(n)+\max(0,\,k_p-1).$
+\end{itemize}
+For odd~$p$ the two cases give the same numerical bound $v_p(n)+\max(0,k_p-1)$,
+since $v_p(n/2)=v_p(n)$ when $\gcd(p,2)=1$.
+For every odd prime $p\mid n$, we have $k_p\ge 1$ because
+$A\one\equiv\mathbf{0}\pmod{p}$ by the row-sum identity, so the
+odd-prime bound becomes stronger than the base divisibility exactly when
+$k_p\ge 2$.  For $p=2$, the behavior depends on $n\bmod 4$: if
+$n\equiv0\pmod4$, then $\one\in\ker_{\FF_2}(A\bmod2)$ by
+\Cref{cor:4k-kernel}; if $n\equiv2\pmod4$, then $k_2=0$ is possible
+and corresponds to the full-rank obstruction of
+\Cref{thm:F2-characterization}.
+\end{corollary}
+
+\begin{proof}
+If $\det(A)=0$, then $v_p(\det A)=+\infty$ by convention, so there is
+nothing to prove.  Hence assume $\det(A)\neq 0$.
+
+The argument follows \Cref{thm:sharp-v2} with $2$ replaced by~$p$.
+
+\smallskip\noindent\textbf{Case $n$ even.}
+By \Cref{lem:rowsum}, $A\one=h\,\mathbf{c}$ with $h=n/2$ and
+each~$c_i$ odd.  The adjugate factorization
+$d_{n-1}=h\,(Q\mathbf{c})_i$ gives $v_p(d_{n-1})\ge v_p(h)=v_p(n/2)$.
+The SNF pigeonhole over the $k_p$ invariant factors divisible by~$p$
+yields the stated bound.
+
+\smallskip\noindent\textbf{Case $n$ odd.}
+By \Cref{lem:rowsum}, $A\one=n\,\mathbf{u}$ with
+$u_i=(n{+}1{-}2L_{i,n-1})/2\in\ZZ$.  The adjugate factorization gives
+$d_{n-1}=n\,(Q\mathbf{u})_i$, so $v_p(d_{n-1})\ge v_p(n)$.  The SNF
+pigeonhole completes the proof as before.
+\end{proof}
+
+\begin{remark}
+The bound of \Cref{cor:sharp-vp} is consistent with every observed
+$(n,p,k_p)$ triple: $2700$ Jacobson--Matthews samples across
+$n\le 20$ and $p\in\{2,3,5\}$ produced zero violations, and equality was
+observed in every sampled case.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Counterexamples}\label{sec:counterexamples}
+% ══════════════════════════════════════════════════════════════════════════
+
+We now exhibit explicit instances of the counterexample mechanisms already
+identified in \Cref{sec:parity}.  The aim of this section is illustrative:
+to show the universal theorem at work in concrete families and to record
+the finite behavior at the first accessible orders.
+
+In particular, we exhibit Latin squares for which $n^2\nmid\det(\Estd)$.
+For $n\equiv 2\pmod{4}$, \Cref{thm:universal-counterexamples} guarantees
+the existence of counterexamples at every order $n\ge 6$;
+\Cref{thm:F2-characterization} provides the underlying criterion
+$\rank_{\FF_2}(A\bmod 2)=n-1$.
+For $n\equiv 0\pmod{4}$, although
+$\one\in\ker_{\FF_2}(A\bmod 2)$ always holds, the bound
+$\frac{n^2}{2}\mid\det(\Estd)$ is still sharp (see $n=8$ in
+\Cref{cor:4k-kernel}); however, $n^2\mid\det(\Estd)$ is guaranteed
+whenever $\dim\ker_{\FF_2}(A\bmod 2)\ge 2$ (\Cref{thm:4k-sufficient}).
+
+\subsection{Exhaustive classification at n=6}
+
+There are exactly $9408$ reduced Latin squares of order~$6$ (first row
+${}={}$ first column ${}= (1,2,3,4,5,6)$).  Every Latin square of
+order~$6$ is equivalent to a reduced one via row and column permutations,
+which preserve~$\det(\Estd)$ up to sign.
+
+\begin{proposition}\label{prop:n6}
+Among the $9408$ reduced Latin squares of order~$6$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $8832$ satisfy $36\mid\det(\Estd)$, with
+        $\rank_{\FF_2}(A\bmod 2)\le 4$.
+  \item $576$ satisfy $18\mid\det(\Estd)$ but $36\nmid\det(\Estd)$,
+        with $\rank_{\FF_2}(A\bmod 2)=5$ (full rank).
+\end{enumerate}
+The $576$ counterexamples correspond to $84$ out of $1252$ distinct
+parity patterns.  No parity pattern gives a mixed outcome: every Latin
+square with the same pattern produces the same $\FF_2$-rank.
+\end{proposition}
+
+The set $\mathcal{R}(6,3)$ of all doubly balanced $6\times 6$
+binary matrices has exactly $297\,200$ elements.  We classify these by
+the action of the group
+$\mathcal{G}=(S_6\times S_6)\rtimes\langle\tau,\kappa\rangle$
+(row permutations, column permutations, transpose~$\tau$, and
+complement~$\kappa:P\mapsto\one-P$), all of which preserve
+$\rank_{\FF_2}$.
+
+\begin{proposition}[Orbit classification at $n=6$]\label{prop:n6-orbits}
+$\mathcal{R}(6,3)$ decomposes into exactly $6$ orbits under~$\mathcal{G}$,
+of sizes $200$, $16\,200$, $86\,400$, $43\,200$, $129\,600$,
+and $21\,600$, with $\FF_2$-ranks $2$, $3$, $4$, $4$, $5$, $6$
+respectively.  In particular there is a \emph{unique} full-rank orbit.
+At $n=6$, a doubly balanced pattern has full $\FF_2$-rank if and only
+if every pair of rows has nonempty support intersection, i.e.\
+the converse of\/ \Cref{prop:disjoint-pair} holds.
+\end{proposition}
+
+\begin{remark}\label{rem:n6-structure}
+The unique full-rank representative admits a block-circulant presentation:
+indexing rows and columns by $(a,b)\in\ZZ_3\times\ZZ_2$,
+the matrix is $\operatorname{circ}(J_2,I_2,0)$ over~$\ZZ_3$.
+The skip-one circulant $\operatorname{circ}(\{0,1,3\})$ from
+\Cref{thm:universal-counterexamples} lies in this orbit.
+\end{remark}
+
+\begin{remark}
+The $84$ full-rank parity patterns are characterized by their column
+weight profiles.  Among all $\binom{5}{3}^5=100\,000$ binary
+$5\times 5$ matrices with constant row weight~$3$, only $19\,440$
+(19.4\%) have full $\FF_2$-rank, and only $84$ of these are realized by
+Latin squares---a selection rate of $0.43\%$.  The Latin square structure
+is far more restrictive than the weight constraint alone.
+\end{remark}
+
+\subsection{Constructed counterexamples at n=10}\label{subsec:n10}
+
+For $n=10$, exhaustive enumeration is infeasible ($\sim\!2\times 10^{17}$
+reduced Latin squares), so we adopt a constructive approach.
+
+\medskip\noindent
+\textbf{Method.}
+By \Cref{thm:universal-counterexamples}, the circulant pattern
+$\mathcal{P}_{S_{10}}$ with $S_{10}=\{0,1,2,3,5\}\subseteq\ZZ_{10}$
+is doubly balanced and has full $\FF_2$-rank.
+By \Cref{prop:balanced-lift}, it lifts to a Latin square.
+The examples below were found before this theoretical result was
+available, using the following constructive approach:
+\begin{enumerate}[leftmargin=2em]
+  \item Generate random \emph{doubly balanced} $10\times 10$ binary
+        matrices~$\mathcal{P}$ (5~ones per row and column).
+  \item Compute the $9\times 9$ matrix $A\bmod 2$ via
+        \Cref{lem:Amod2} and check $\rank_{\FF_2}=9$.
+  \item If full-rank, complete~$\mathcal{P}$ to a
+        Latin square by decomposing the bipartite graph into perfect
+        matchings (\Cref{prop:balanced-lift}), or alternatively by
+        backtracking with minimum-remaining-values heuristic.
+  \item Verify $\det(A)$ using exact integer arithmetic (Bareiss
+        algorithm).
+\end{enumerate}
+
+\begin{proposition}\label{prop:n10}
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item Among $4000$ doubly balanced $10\times 10$ binary matrices
+        sampled via switch-chain MCMC ($50\,000$ burn-in steps,
+        thinning every $200$ steps),
+        $711$ ($17.8\%$) have full $\FF_2$-rank.
+        The rank distribution is:
+        \begin{center}
+        \begin{tabular}{cccccc}
+          \toprule
+          $\rank_{\FF_2}$ & 6 & 7 & 8 & 9 & 10 \\\\
+          \midrule
+          Count & 5 & 107 & 990 & 2187 & 711 \\\\
+          \bottomrule
+        \end{tabular}
+        \end{center}
+  \item All $711$ full-rank patterns were successfully completed to
+        Latin squares via the perfect-matching decomposition of
+        \Cref{prop:balanced-lift}.
+  \item Every resulting Latin square had odd $\det(A)$, confirming
+        $\rank_{\FF_2}(A\bmod 2)=9$ and $100\nmid\det(\Estd)$.
+        Thus the corpus yields $711$ counterexample instances
+        at $n=10$ (structural distinctness among these instances
+        has not been verified).
+\end{enumerate}
+\end{proposition}
+
+\begin{example}[Explicit counterexample at $n=10$]\label{ex:n10}
+The following is a Latin square of order~$10$ with $\det(A)=15\,427\,045$
+(odd):
+\begingroup
+\small
+\[
+L=\begin{pmatrix}
+2 & 5 & 6 & 4 & 3 & 8 & 7 & 9 & 10 & 1 \\
+10 & 6 & 2 & 7 & 5 & 1 & 9 & 8 & 4 & 3 \\
+3 & 4 & 1 & 10 & 8 & 5 & 2 & 7 & 9 & 6 \\
+7 & 1 & 10 & 8 & 6 & 9 & 3 & 4 & 2 & 5 \\
+1 & 7 & 3 & 6 & 4 & 10 & 8 & 2 & 5 & 9 \\
+9 & 2 & 5 & 3 & 10 & 6 & 4 & 1 & 8 & 7 \\
+6 & 9 & 8 & 1 & 2 & 7 & 5 & 10 & 3 & 4 \\
+5 & 8 & 7 & 2 & 9 & 4 & 1 & 3 & 6 & 10 \\
+4 & 3 & 9 & 5 & 1 & 2 & 10 & 6 & 7 & 8 \\
+8 & 10 & 4 & 9 & 7 & 3 & 6 & 5 & 1 & 2
+\end{pmatrix}
+\]
+\endgroup
+The relevant invariants are:
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  Property & Value \\
+  \midrule
+  Valid Latin square & \checkmark\ (rows and columns are permutations of $\{1,\dots,10\}$) \\
+  Doubly balanced parity & \checkmark\ ($5$ odd $+$ $5$ even per row and column) \\
+  $\det(A)$ & $15\,427\,045 = 5 \times 3\,085\,409$ \\
+  $v_2(\det(A))$ & $0$ (odd) \\
+  $\det(\Estd)=10\det(A)$ & $154\,270\,450$ \\
+  $50\mid\det(\Estd)$? & Yes (\Cref{thm:unified} confirmed) \\
+  $100\mid\det(\Estd)$? & No \quad ($\Leftarrow$ counterexample) \\
+  $\rank_{\FF_2}(A\bmod 2)$ & $9 = n-1$ (full rank) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\end{example}
+
+\begin{remark}[Abundance]\label{rem:abundance}
+The $711$ counterexamples at $n=10$ arise from MCMC-sampled
+balanced patterns.  All satisfy $5\mid\det(A)$
+(as guaranteed by \Cref{thm:odd-prime-kernel}) and $2\nmid\det(A)$.
+The lift from full-rank balanced pattern to counterexample Latin square
+succeeded in $711/711$ cases ($100\%$), suggesting that the
+counterexample property depends entirely on the parity pattern (as
+proved in \Cref{cor:parity-complete}) and that the lift step introduces
+no additional obstruction.
+\end{remark}
+
+\begin{remark}[Converse failure at $n=10$]\label{rem:n10-converse}
+Switch-chain MCMC sampling of $20\,000$ matrices from $\mathcal{R}(10,5)$
+yields approximately $17.8\%$ full-rank.  Every full-rank sample satisfies
+the no-disjoint-pair condition of \Cref{prop:disjoint-pair} (recall
+$=1.000$), but the converse fails: among $12\,549$ samples with no
+disjoint row pair, $8\,995$ are rank-deficient (precision $=0.283$).
+Thus the disjoint-support obstruction is necessary but not sufficient
+for $n\ge 10$.
+\end{remark}
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Computational methods}\label{sec:computation}
+% ══════════════════════════════════════════════════════════════════════════
+
+All computations were performed with exact integer arithmetic to avoid
+numerical artifacts.
+
+All claims explicitly labeled \emph{exhaustive} were verified by finite
+exact computation.  Sampling data are used only as consistency checks or
+as sources of witnesses, never as proof of a theorem unless exhaustive
+enumeration is explicitly stated.  The scripts used for determinant,
+Smith normal form, finite-field rank, adjugate testing, and
+Jacobson--Matthews sampling are part of the accompanying computational
+project infrastructure.
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Determinant computation.} The Bareiss algorithm was used
+        to compute $\det(A)$ over~$\ZZ$ in $O(n^3)$ operations, with
+        exact integer division at each step to prevent coefficient
+        growth~\cite{Bareiss68}.
+
+  \item \textbf{$\FF_2$-rank computation.}  Gaussian elimination
+        over~$\FF_2$ in $O(n^3)$ bit operations.
+
+  \item \textbf{Smith Normal Form.} For selected verification, the
+        Smith Normal Form of~$A$ over~$\ZZ$ was computed to extract
+        invariant factors and confirm $p$-adic valuations independently.
+
+  \item \textbf{Latin square generation.}  Reduced Latin squares of
+        order~$6$ were enumerated exhaustively ($9408$ squares).  For
+        orders~$8$--$16$, Latin squares were sampled
+        via the Jacobson--Matthews Markov chain~\cite{JM96} with at
+        least $5n^2$ mixing steps per sample; we refer to these as
+        \emph{Jacobson--Matthews samples} rather than claiming exact
+        uniformity.  All $576$ Latin squares of
+        order~$4$ were enumerated for exhaustive verification.
+
+  \item \textbf{Balanced binary matrices.}  Random doubly balanced
+        $n\times n$ binary matrices (with row and column sums equal
+        to~$n/2$) were generated by rejection sampling for small
+        orders.  For $n=10$, exploratory pattern-space samples
+        were drawn via switch-chain MCMC on $\mathcal{R}(n,n/2)$
+        (swapping $2\times 2$ checkerboard submatrices to preserve
+        all row and column sums); no rigorous mixing-time bound
+        is claimed, and these samples are treated as approximately
+        uniform.
+
+  \item \textbf{Constrained completion.}  Given a doubly balanced
+        parity pattern~$\mathcal{P}$, Latin square completion was
+        performed by backtracking with the minimum-remaining-values
+        (MRV) heuristic and forward checking.  Each cell's domain is
+        restricted to odd or even values according to~$\mathcal{P}$,
+        and assignments are propagated to prune domains in the same
+        row and column.
+\end{itemize}
+
+\begin{remark}
+For $n=6$, the exhaustive enumeration and verification of all $9408$
+reduced Latin squares completes in under one second.  For $n=10$, the
+backtracking-lift procedure (pattern generation, rank check, backtracking
+completion, Bareiss determinant) typically produces a counterexample
+within several hundred trials, each trial requiring a few seconds.
+\end{remark}
+
+\paragraph{Code and data availability.}
+
+All scripts, seeds, and certified datasets used in this paper are
+available as an open-source Python package (\texttt{latin\_det})
+released under the MIT licence at
+\url{https://github.com/aconsciousfractal/Determinant-Divisibility-of-Centered-Latin-Squares}.
+The repository includes:\ (i)~exact Bareiss determinant, $\FF_2$~rank,
+adjugate and Smith-normal-form routines;\ (ii)~a reproducible random
+Latin-square sampler and a switch-chain MCMC on $\mathcal{R}(n,n/2)$;\ 
+(iii)~certified datasets for $n\in\{5,6\}$ exhaustive enumeration, the
+$10{,}000$-sample $n=8$ table (seed~$0$), the $4{,}000$-sample $n=10$
+switch-chain table (seed~$42$), the cyclic Smith-normal-form table for
+$n\le 12$, the $p$-adic bound scan for $n\le 12$,
+$p\in\{2,3,5\}$, and the \Cref{ex:n10} witness JSON certificate;\ and
+(iv)~a standalone script
+(\texttt{scripts/verify\_isotopy\_destruction.py}) reproducing the
+isotopy non-invariance experiment of~\S\ref{sec:discussion}.  A
+SHA-256 manifest (\texttt{results/certified/SHA256SUMS}) pins the
+byte-exact contents of every deterministic artefact.  A permanent
+archive of the submission snapshot (tag \texttt{v1.0-submission}) will
+be deposited on Zenodo; the DOI will be added upon acceptance.
+
+% ══════════════════════════════════════════════════════════════════════════
+\section{Discussion}\label{sec:discussion}
+% ══════════════════════════════════════════════════════════════════════════
+
+\subsection{Summary of results}
+
+\Cref{thm:unified} provides a universal quadratic divisibility
+bound for $\det(\Estd)$ over all Latin squares.
+\Cref{thm:F2-characterization} reduces the question of improved
+$n^2$-divisibility to a binary linear algebra problem when
+$n\equiv 2\pmod{4}$.
+\Cref{thm:row-weight} and \Cref{thm:odd-prime-kernel} clarify the precise
+mechanism: every odd prime factor of~$n$ contributes its share
+unconditionally, while the prime~$2$ is governed by the
+$\FF_2$-rank of a matrix determined solely by the parity pattern of~$L$.
+For $n\equiv 0\pmod{4}$, the all-ones vector lies automatically in the
+$\FF_2$-kernel of~$A\bmod 2$, but this does not suffice to force
+$n^2$-divisibility.  \Cref{thm:adjugate-criterion} provides the
+complete criterion: $n^2\mid\det(\Estd)$ if and only if
+$\adj(B)\cdot\one=\mathbf{0}$ in~$\FF_2^{n-1}$, where $B=A\bmod 2$;
+\Cref{thm:4k-sufficient} is the special case $\dim\ker_{\FF_2}\ge 2$
+(which forces $\adj(B)=0$).
+\Cref{thm:sharp-v2} refines the $2$-adic analysis to a tight lower bound:
+$v_2(\det A)\ge v_2(n/2)+\max(0,k-1)$ where $k=\dim\ker_{\FF_2}(A\bmod 2)$,
+proved via Smith normal form theory and the divisibility chain of
+invariant factors.
+The unified bound $\frac{n^2}{2}\mid\det(\Estd)$ remains
+sharp at $n=8$.
+
+The overall picture is as follows:
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  $n$ & Divisibility & Status \\
+  \midrule
+  $n$ odd & $n^2\mid\det(\Estd)$ & Universal (\Cref{thm:unified}) \\
+  $n$ even & $\frac{n^2}{2}\mid\det(\Estd)$ & Universal; globally sharp for even orders, but not at $n=4$ (\Cref{thm:unified,prop:sharp,rem:n4}) \\
+  $n\equiv 2\pmod{4}$ & $n^2\mid\det(\Estd)$ & iff $\rank_{\FF_2}(A\bmod 2)<n{-}1$ (\Cref{thm:F2-characterization}) \\
+  $n\equiv 2\pmod{4}$ & $n^2\nmid\det(\Estd)$ & $\exists$ for all $n\ge 6$ (\Cref{thm:universal-counterexamples}) \\
+  $n\equiv 0\pmod{4}$ & $n^2\mid\det(\Estd)$ & iff $\adj(A\bmod 2)\cdot\one=\mathbf{0}$ (\Cref{thm:adjugate-criterion}) \\
+  $n$ even & $v_2(\det A)\ge v_2(n/2)+\max(0,k{-}1)$ & Lower bound (\Cref{thm:sharp-v2}), $k=\dim\ker_{\FF_2}$ \\
+  odd $p\mid n$ & $v_p(\det A)\ge v_p(n)+\max(0,k_p{-}1)$ & Lower bound (\Cref{cor:sharp-vp}), $k_p=\dim\ker_{\FF_p}$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Consequences and related directions}
+
+\paragraph{Isotopy non-invariance.}
+
+The $\FF_2$-rank of $A\bmod 2$---and hence the counterexample
+property---is \emph{not} an isotopy invariant.  Row and column
+permutations of~$L$ preserve $|\det(\Estd)|$, but symbol relabeling
+$L\mapsto\gamma(L)$ changes the parity pattern and can alter the
+$\FF_2$-rank; compare the broader isotopy/autotopism context in
+\cite{SVW12}.  In particular, reducing the $n=10$ counterexample of
+\Cref{ex:n10} to standard form (first row $=(1,\dots,10)$) produces a
+Latin square with \emph{even} $\det(A)$, i.e.\ the counterexample property
+is destroyed.  This shows that the divisibility deficit depends on the
+\emph{labeled} Latin square, not merely on its isotopy class or main
+class.
+
+\paragraph{Connection to coding theory.}
+
+By \Cref{thm:row-weight}, the rows of $A\bmod 2$ form
+a constant-weight binary code of weight~$n/2$ and length~$n-1$
+(see~\cite{MS77} for the general theory of constant-weight codes).
+The code is not in general doubly constant-weight: column weights vary
+depending on the correlation structure of the parity pattern.  It would be
+interesting to characterize which constant-weight configurations arise
+from Latin squares and how the dimension of the row space is constrained.
+
+\paragraph{The integer invariant $f(L)$.}
+
+For Latin squares satisfying $n^2\mid\det(\Estd)$, the quotient
+$f(L)=\det(\Estd)/n^2$ is a well-defined integer.  For the cyclic Latin
+square of odd order~$n$, $f(L)=(-1)^{(n-1)/2}n^{n-3}$.  The invariant
+$f(L)$ is preserved by transposition ($f(L)=f(L^T)$) but not by
+isotopy in general.
+
+\paragraph{Generalization to odd primes.}\label{sec:p-adic}
+
+\Cref{cor:sharp-vp} extends the $2$-adic bound of
+\Cref{thm:sharp-v2} to every prime $p\mid n$: for odd~$p$,
+\[
+  v_p(\det A)\;\ge\; v_p(n)+\max(0,\,k_p-1),
+  \qquad k_p=\dim\ker_{\FF_p}(A\bmod p).
+\]
+This strengthens the base divisibility of \Cref{thm:unified} whenever
+$k_p\ge 2$.  We note that the earlier conjectured bound
+$v_p(n/p)+\max(0,k_p-1)$ is valid but sub-optimal: it is weaker by
+exactly one $p$-adic unit.
+
+\paragraph{Cokernel and the Latin square graph.}\label{sec:sandpile-LSG}
+
+\Cref{cor:sandpile-cyclic} shows that the cokernel of the cyclic
+Latin square has the rigid form $(\ZZ/n)^{n-2}$.  For a general Latin
+square of order~$n$, the cokernel $K(A)$ exhibits far richer
+structure: exhaustive enumeration at $n=5$ yields $6$ distinct
+isomorphism types among $56$ reduced squares, and at $n=6$ there are
+$377$ types among $9408$ reduced squares.  Related Smith-normal-form
+computations for combinatorially defined matrices (rook graphs, graph
+Laplacians) have been carried out in~\cite{DGW16,Lorenzini08} and
+provide a template for extending the present cokernel analysis.
+
+A natural question is whether $K(A)$ embeds algebraically into the
+critical group $K(\mathrm{LSG}(n))$ of the associated Latin square graph,
+which would manifest as divisibility $|K(A)|\mid|K(\mathrm{LSG}(n))|$.
+
+\begin{remark}[Divisibility by $K(\mathrm{LSG})$]\label{rem:C7}
+Let $\mathrm{LSG}(n)$ denote the Latin square graph on~$n^2$ vertices
+(two vertices adjacent iff they share a row, column, or symbol).
+All Latin square graphs of order~$n$ are strongly regular with
+parameters $(n^2,\,3(n{-}1),\,n{-}2,\,6)$, hence co-spectral;
+in particular, $|K(\mathrm{LSG}(n))|$ is constant across all Latin
+squares of order~$n$ (though the group structure may vary).
+Exhaustive computation gives:
+\[
+  |K(\mathrm{LSG}(5))| = 2^{12}\cdot 3^{12}\cdot 5^{22},\qquad
+  |K(\mathrm{LSG}(6))| = 2^{48}\cdot 3^{53}.
+\]
+The divisibility $|K(A)|\mid|K(\mathrm{LSG}(n))|$ holds for all reduced
+Latin squares at $n=3$ and $n=4$, but \emph{fails} at $n=5$ for $14$
+of $56$ squares (25\%) and at $n=6$ for $5688$ of $7840$ non-singular
+squares (72.6\%).
+
+In every observed case, the failure occurs precisely when $|K(A)|$ has
+a prime factor absent from $|K(\mathrm{LSG}(n))|$.  For instance, at
+$n=5$, the failing orders $|K(A)|\in\{55,105,155\}$ contain the
+``alien'' primes $11$, $7$, and $31$ respectively; at $n=6$ the prime
+support of $|K(\mathrm{LSG}(6))|$ is $\{2,3\}$, and any Latin square
+with $|K(A)|$ divisible by a prime $p\ge 5$ fails.
+\end{remark}
+
+\subsection{Open questions}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item \textbf{Density of counterexamples.}
+        Several distinct frequencies have been observed.
+        At $n=6$, the exact counterexample rate among \emph{reduced
+        Latin squares} is $576/9408 \approx 6.1\%$.
+        At $n=8$, approximately $11\%$ of \emph{Jacobson--Matthews
+        samples} (Latin squares, not patterns) satisfy
+        $n^2\nmid\det(\Estd)$ (\Cref{rem:n8-sampling}).
+        At $n=10$, the doubly balanced \emph{parity-pattern} corpus
+        of \Cref{prop:n10} yields $711/4000\approx 17.8\%$ full-rank
+        patterns.
+        These three rates are not directly comparable: the first is
+        exact over reduced squares, the second is a Latin-square
+        sampling frequency, and the third is a pattern-space frequency.
+        Clarifying the relationship among these measures, and
+        determining the asymptotic counterexample density among all
+        Latin squares as $n\to\infty$ along even~$n$, remains open.
+
+  \item \textbf{Structural characterization of full-rank parity patterns.}
+        At $n=6$, \Cref{prop:n6-orbits} shows that full $\FF_2$-rank
+        occurs precisely for the unique orbit of doubly balanced
+        patterns with no disjoint row pair; the converse of
+        \Cref{prop:disjoint-pair} holds exactly.  For $n\ge 10$
+        with $n\equiv 2\pmod{4}$, the disjoint-pair obstruction
+        remains necessary but is no longer sufficient
+        (\Cref{rem:n10-converse}).
+        Find a structural characterization of full-rank parity
+        patterns---readable directly from the binary matrix---that
+        extends beyond~$n=6$.
+
+  \item \textbf{Group-theoretic structure.}  Among the $80$ reduced
+        Latin squares of order~$6$ that are Cayley tables of groups,
+        $36$ (45\%) are counterexamples---a much higher rate
+        than the $6.1\%$ among all reduced Latin squares.  What
+        role does the group structure play in determining the
+        $\FF_2$-rank?
+
+  \item \textbf{Prime support of $K(\mathrm{LSG}(n))$.}
+        By \Cref{rem:C7}, the prime support of $|K(\mathrm{LSG}(n))|$
+        is $\{2,3,5\}$ at $n=5$ and $\{2,3\}$ at $n=6$.
+        Does the prime support grow or shrink with~$n$?
+        A complete description of $|K(\mathrm{LSG}(n))|$ would
+        determine exactly which cokernels~$K(A)$ can embed into
+        the graph-level critical group.
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════
+% APPENDIX
+% ══════════════════════════════════════════════════════════════════════════
+\appendix
+\section{Determinant values at n=5}\label{app:n5}
+
+For all $56$ reduced Latin squares of order~$5$, $\det(\Estd)$ is
+divisible by $25=5^2$.  The distribution of values is:
+
+\begin{center}
+\begin{tabular}{rr}
+  \toprule
+  $\det(\Estd)$ & Count \\
+  \midrule
+  $-525$ & 6 \\
+  $-400$ & 12 \\
+  $-25$ & 16 \\
+  $25$ & 5 \\
+  $275$ & 2 \\
+  $400$ & 8 \\
+  $525$ & 4 \\
+  $625$ & 1 \\
+  $775$ & 2 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+In particular, $\det(\Estd)\ne 0$ for all $56$ squares, so
+$\rank(\Estd)=4=n-1$ (full rank on~$\Vstd$) is universal at $n=5$.
+
+\section{Weight structure of n=10 counterexamples}\label{app:weights}
+
+A representative sample of eight counterexamples at $n=10$, drawn from
+the corpus of \Cref{prop:n10}, exhibits constant row weight~$5=n/2$
+in~$A\bmod 2$ (as predicted by \Cref{thm:row-weight}) and variable
+column weights:
+
+\begin{center}
+\begin{tabular}{rrl}
+  \toprule
+  \# & $\det(A)$ & Column weights of $A\bmod 2$ (sorted) \\
+  \midrule
+  1 & $2\,606\,485$ & $(1,4,4,5,5,6,6,7,7)$ \\
+  2 & $-8\,863\,025$ & $(3,3,4,5,5,6,6,6,7)$ \\
+  3 & $-25\,279\,735$ & $(2,4,4,5,5,5,6,7,7)$ \\
+  4 & $-24\,821\,965$ & $(2,2,4,5,5,6,7,7,7)$ \\
+  5 & $-50\,014\,675$ & $(2,4,4,5,5,5,6,7,7)$ \\
+  6 & $42\,371\,805$ & $(3,4,4,5,5,5,6,6,7)$ \\
+  7 & $-11\,745\,775$ & $(1,5,5,5,5,6,6,6,6)$ \\
+  8 & $5\,123\,485$ & $(2,4,4,5,5,5,6,7,7)$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All $711$ corpus determinants are divisible by~$5$ (consistent with
+\Cref{thm:odd-prime-kernel}) and none is divisible by~$2$.
+
+\section{Exhaustive column weight analysis at n=6}\label{app:n6weights}
+
+Among the $576$ counterexamples at $n=6$, the column weight distributions
+of $A\bmod 2$ are:
+
+\begin{center}
+\begin{tabular}{lr}
+  \toprule
+  Column weights (sorted) & Count \\
+  \midrule
+  $(2,3,3,3,4)$ & 320 \\
+  $(1,3,3,4,4)$ & 256 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+All $576$ counterexamples have constant row weight $3=n/2$.
+
+% ══════════════════════════════════════════════════════════════════════════
+% REFERENCES
+% ══════════════════════════════════════════════════════════════════════════
+\begin{thebibliography}{99}
+
+\bibitem{Bareiss68}
+E.\,H.~Bareiss,
+\emph{Sylvester's identity and multistep integer-preserving Gaussian elimination},
+Math.\ Comp.\ \textbf{22} (1968), 565--578.
+
+\bibitem{Biggs99}
+N.\,L.~Biggs,
+\emph{Chip-firing and the critical group of a graph},
+J.\ Algebraic Combin.\ \textbf{9} (1999), 25--45.
+
+\bibitem{DJW16}
+D. Donovan, M. Johnson, and I.\,M. Wanless,
+\emph{Permanents and determinants of Latin squares},
+J.\ Combin.\ Des.\ \textbf{24} (2016), 211--225.
+
+\bibitem{Davis94}
+P.\,J.~Davis,
+\emph{Circulant Matrices}, 2nd ed.,
+AMS Chelsea Publishing, Providence, RI, 1994.
+
+\bibitem{DK91}
+J.~D\'enes and A.\,D.~Keedwell,
+\emph{Latin Squares: New Developments in the Theory and Applications},
+Annals of Discrete Mathematics \textbf{46}, North-Holland, 1991.
+
+\bibitem{DGW16}
+J. Ducey, J. Gerhard, and B. Watson,
+\emph{The Smith and critical groups of the square rook's graph and its complement},
+Electron.\ J.\ Combin.\ \textbf{23} (2016), Paper~4.9.
+
+\bibitem{FordJohnson96}
+D. Ford and C. Johnson,
+\emph{Determinants of Latin squares of order 8},
+Experiment.\ Math.\ \textbf{5} (1996), 301--306.
+
+\bibitem{JM96}
+M.\,T.~Jacobson and P.~Matthews,
+\emph{Generating uniformly distributed random Latin squares},
+J.\ Combin.\ Des.\ \textbf{4} (1996), 405--437.
+
+\bibitem{Konig16}
+D.~K\"onig,
+\emph{\"Uber Graphen und ihre Anwendung auf Determinantentheorie und
+Mengenlehre},
+Math.\ Ann.\ \textbf{77} (1916), 453--465.
+
+\bibitem{MS77}
+F.\,J.~MacWilliams and N.\,J.\,A.~Sloane,
+\emph{The Theory of Error-Correcting Codes},
+North-Holland, Amsterdam, 1977.
+
+\bibitem{Lorenzini08}
+D. Lorenzini,
+\emph{Smith normal form and Laplacians},
+J.\ Combin.\ Theory Ser.\ B \textbf{98} (2008), 1271--1300.
+
+\bibitem{Newman72}
+M.~Newman,
+\emph{Integral Matrices},
+Pure and Applied Mathematics \textbf{45}, Academic Press, New York, 1972.
+
+\bibitem{SVW12}
+D.\,S.~Stones, P.~Vojt\v{e}chovsk\'y, and I.\,M.~Wanless,
+\emph{Cycle structure of autotopisms of quasigroups and Latin squares},
+J.\ Combin.\ Des.\ \textbf{20} (2012), 227--263.
+
+\bibitem{Wanless11}
+I.\,M.~Wanless,
+\emph{Transversals in Latin squares: a survey},
+in: \emph{Surveys in Combinatorics 2011}, London Math.\ Soc.\ Lecture Note Ser.\
+\textbf{392}, Cambridge Univ.\ Press, 2011, 403--437.
+
+\end{thebibliography}
+
+\end{document}

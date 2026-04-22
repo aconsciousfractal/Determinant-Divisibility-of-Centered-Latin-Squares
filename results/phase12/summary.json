@@ -1,0 +1,25 @@
+{
+  "params": {
+    "N": 10,
+    "K": 5,
+    "N_SAMPLES": 4000,
+    "BURN_IN": 50000,
+    "THIN": 200,
+    "SEED": 20260412
+  },
+  "counts": {
+    "total": 4000,
+    "full_rank": 711,
+    "deficient": 3289,
+    "false_positive": 1816,
+    "true_negative": 1473,
+    "counterexamples": 711
+  },
+  "rank_distribution": {
+    "6": 5,
+    "7": 107,
+    "8": 990,
+    "9": 2187,
+    "10": 711
+  }
+}

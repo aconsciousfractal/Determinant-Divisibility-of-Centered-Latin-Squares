@@ -1,0 +1,533 @@
+{
+  "theorem": "For every Latin square L of order 5, rank(L - 3J) = 4 (even).",
+  "proof_method": "Exhaustive enumeration of all 56 reduced LS + isotopy invariance",
+  "n": 5,
+  "reduced_count": 56,
+  "results": [
+    {
+      "index": 0,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 1,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 2,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 3,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 4,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 5,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 6,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 7,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 8,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 9,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 10,
+      "det_E_std": 25,
+      "rank": 4,
+      "poly_type": "const(25)",
+      "det_D1": 0,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 11,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 12,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 13,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 14,
+      "det_E_std": 625,
+      "rank": 4,
+      "poly_type": "+1*25*Golden_plus",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 2
+    },
+    {
+      "index": 15,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 16,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 17,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 18,
+      "det_E_std": 25,
+      "rank": 4,
+      "poly_type": "const(25)",
+      "det_D1": 0,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 19,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 20,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 21,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 22,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 23,
+      "det_E_std": 275,
+      "rank": 4,
+      "poly_type": "+1*25*Phi10",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 24,
+      "det_E_std": 25,
+      "rank": 4,
+      "poly_type": "+1*25*Golden_minus",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 2
+    },
+    {
+      "index": 25,
+      "det_E_std": 25,
+      "rank": 4,
+      "poly_type": "const(25)",
+      "det_D1": 0,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 26,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 27,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 28,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 29,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 30,
+      "det_E_std": 25,
+      "rank": 4,
+      "poly_type": "const(25)",
+      "det_D1": 0,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 31,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 32,
+      "det_E_std": 525,
+      "rank": 4,
+      "poly_type": "+1*25*t4_t2_1",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 33,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 34,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 35,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 36,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 37,
+      "det_E_std": 525,
+      "rank": 4,
+      "poly_type": "+1*25*t4_t2_1",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 38,
+      "det_E_std": 775,
+      "rank": 4,
+      "poly_type": "+1*25*Phi5",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 39,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 40,
+      "det_E_std": 275,
+      "rank": 4,
+      "poly_type": "+1*25*Phi10",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 41,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 42,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 43,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 44,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 45,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 46,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 47,
+      "det_E_std": -25,
+      "rank": 4,
+      "poly_type": "const(-25)",
+      "det_D1": 0,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 48,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 49,
+      "det_E_std": 525,
+      "rank": 4,
+      "poly_type": "+1*25*t4_t2_1",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 50,
+      "det_E_std": 775,
+      "rank": 4,
+      "poly_type": "+1*25*Phi5",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 51,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 52,
+      "det_E_std": 400,
+      "rank": 4,
+      "poly_type": "+1*25*t4",
+      "det_D1": 25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    },
+    {
+      "index": 53,
+      "det_E_std": -525,
+      "rank": 4,
+      "poly_type": "-1*25*t4_t2_1",
+      "det_D1": -25,
+      "det_D2": -25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 54,
+      "det_E_std": 525,
+      "rank": 4,
+      "poly_type": "+1*25*t4_t2_1",
+      "det_D1": 25,
+      "det_D2": 25,
+      "real_roots_count": 0
+    },
+    {
+      "index": 55,
+      "det_E_std": -400,
+      "rank": 4,
+      "poly_type": "-1*25*t4",
+      "det_D1": -25,
+      "det_D2": 0,
+      "real_roots_count": 4
+    }
+  ],
+  "summary": {
+    "all_det_nonzero": true,
+    "all_rank_even": true,
+    "all_rank_4": true,
+    "min_abs_det": 25,
+    "max_abs_det": 775,
+    "all_det_div_25": true,
+    "polynomial_types": {
+      "+1*25*t4": 8,
+      "const(-25)": 16,
+      "const(25)": 4,
+      "-1*25*t4": 12,
+      "+1*25*Golden_plus": 1,
+      "-1*25*t4_t2_1": 6,
+      "+1*25*Phi10": 2,
+      "+1*25*Golden_minus": 1,
+      "+1*25*t4_t2_1": 4,
+      "+1*25*Phi5": 2
+    },
+    "isotopy_verified": true
+  }
+}

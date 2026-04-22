@@ -1,54 +1,63 @@
-# Determinant Divisibility of Centered Latin Squares — Reproducibility Repository
+# Determinant Divisibility of Centered Latin Squares
 
-Companion code, certified datasets, and verification scripts for the
-paper
+Companion repository for the paper
 
-> **Determinant Divisibility of Centered Latin Squares**,
+> **Determinant Divisibility of Centered Latin Squares: A Unified Theorem and the F₂-Rank Obstruction**
 > Oleksiy Babanskyy, 2026.
 
-The paper studies the integer determinant of the centered Latin-square
-matrix $E = L - \tfrac{n+1}{2}J$ and the "difference" matrix
-$A_{ij} = L_{ij} - L_{i,n-1}$ attached to an $n \times n$ Latin
-square~$L$ with entries in $\{1,\dots,n\}$.  It proves that
-$n \mid \det(E_{\mathrm{std}})$ for every~$L$, classifies the stronger
-divisibility patterns $n^k$ in terms of the $\mathbb{F}_2$-rank of
-$A \bmod 2$, and exhibits an explicit order-10 Latin square with
-$\det(E_{\mathrm{std}}) / n^2 \notin \mathbb{Z}$.
+Contains the manuscript source, the experimental scripts used to produce
+and cross-check every empirical claim, and the datasets those scripts
+generated during the research phase.
 
-This repository contains everything needed to re-derive the empirical
-content of Sections 5–7 from scratch.
-
-## Repository layout
+## Layout
 
 ```
 .
-├── latin_det/              # Python package (core algorithms)
-│   ├── core.py             #   exact linear algebra (Bareiss, Gram, parity)
-│   ├── f2.py               #   F_2 linear algebra (rank, kernel, adjugate)
-│   ├── snf.py              #   Smith normal form (sympy wrapper)
-│   ├── samplers.py         #   random Latin squares, switch chain
-│   ├── lifts.py            #   Konig lift + MRV backtracking
-│   ├── enumerate.py        #   reduced-LS enumeration for n <= 6
-│   └── __main__.py         #   CLI entry point
-├── scripts/
-│   └── verify_isotopy_destruction.py
-├── results/certified/      # Datasets referenced in the paper
-│   ├── n5_det_enum.csv
-│   ├── n6_det_enum.csv
-│   ├── n8_jm_seed0.csv
-│   ├── n10_mcmc_4000.csv
-│   ├── cyclic_snf.csv
-│   ├── padic_bounds_table.csv
-│   ├── n10_witness.json
-│   ├── isotopy_destruction.json
-│   └── SHA256SUMS
+├── paper/                     # LaTeX source (.tex), bibliography (.bbl), compiled PDF
+├── scripts/                   # Self-contained Python scripts used during the research
+│   ├── jm_paper_verify.py     #   core verification of Sections 3–5 claims (JM sampling)
+│   ├── jm_crosscheck.py       #   unbiased cross-tabulation via Jacobson–Matthews
+│   ├── jm_sharp_bound.py      #   sharpness of the n²-divisibility bound
+│   ├── prove_sharp_bound.py   #   n=6 sharpness proof data
+│   ├── sandpile_verify.py     #   Theorem 7.1 (sandpile bridge) verification
+│   ├── sandpile_n6_exhaustive.py   #   n=6 exhaustive sandpile census (Prop 6.1)
+│   ├── sandpile_cor37_proof.py     #   Corollary 3.7 structural proof
+│   ├── sandpile_proof_final.py     #   sandpile closed-form proof
+│   ├── sandpile_expand.py          #   sandpile expansion diagnostics
+│   ├── verify_n8_jm.py        #   n=8: explicit 32|det, 64∤det witness
+│   ├── verify_n16.py          #   n=16 verification
+│   ├── verify_ergodicity.py   #   Jacobson–Matthews ergodicity check on n=5
+│   ├── verify_hankel_proof.py #   Hankel-structure verification
+│   ├── verify_sign_formula.py #   sign formula check (cyclic family)
+│   ├── verify_unified_criterion.py #   unified divisibility criterion
+│   ├── verify_definitive.py        #   definitive criterion check
+│   ├── verify_final_clean.py       #   final cleanup run
+│   ├── verify_even_n.py /_2.py     #   even-n criterion
+│   ├── verify_base_column.py       #   base-column invariant check
+│   ├── verify_n8*.py               #   n=8 sharpness family
+│   ├── deep_investigation*.py      #   iterative exploration phase
+│   ├── explore_*.py                #   kernel / mixing / structural exploration
+│   ├── check_*.py                  #   Latin-square sanity checks
+│   ├── red_team_step1.py /_verify.py   #   independent adversarial verification
+│   ├── snf_explore.py / snf_v2_profile.py   #   Smith normal form profiling
+│   ├── run_T3.py                   #   theorem T3 check runner
+│   └── ...
+├── results/                   # Outputs captured during research
+│   ├── n6_results.txt                #   exhaustive n=6 SNF census (9 408 squares)
+│   ├── phase12/, phase13/, phase13c/ #   rank-parity investigation datasets
+│   ├── phase14/, phase14b/, phase14c/
+│   ├── phase14*_output.txt           #   consolidated run logs
+│   ├── prefold_svg/                  #   figures (SVG)
+│   └── proof_n5_data.json            #   n=5 proof-assisting data
+├── RANK_PARITY_DOSSIER.md     # Internal research dossier (all phases, proofs, discovery log)
+├── LICENSE                    # MIT
 ├── requirements.txt
-└── LICENSE                 # MIT
+└── .gitignore
 ```
 
-## Installation
+## Dependencies
 
-Requires Python >= 3.10, `numpy >= 1.24`, `sympy >= 1.12`.
+Python ≥ 3.10, `numpy ≥ 1.24`, `sympy ≥ 1.12`.
 
 ```bash
 python -m venv .venv
@@ -57,56 +66,46 @@ source .venv/bin/activate       # Linux / macOS
 pip install -r requirements.txt
 ```
 
-## Reproducing the paper's tables
+## Reproducing the paper
 
-From the repository root (with `PYTHONPATH=.` on Windows or `pip
-install -e .` elsewhere):
-
-| Paper reference | Command | Runtime |
-|---|---|---|
-| Appendix A — n=5 census | `python -m latin_det enum --n 5 --out results/certified/n5_det_enum.csv` | <1 s |
-| Proposition 6.1 — n=6 census (9 408 squares) | `python -m latin_det enum --n 6 --out results/certified/n6_det_enum.csv` | ≈1.2 s |
-| Corollary 3.5 — cyclic SNF, n <= 12 | `python -m latin_det snf --max-n 12 --out results/certified/cyclic_snf.csv` | <1 s |
-| Example 6.4 — n=10 witness certificate | `python -m latin_det witness --out results/certified/n10_witness.json` | <1 s |
-| Section 7 — random Latin squares n=8 (10 000 samples) | `python -m latin_det jm --n 8 --samples 10000 --seed 0 --out results/certified/n8_jm_seed0.csv` | ≈25 s |
-| Section 7 — switch-chain R(10,5) (4 000 samples) | `python -m latin_det switch --n 10 --samples 4000 --burnin 50000 --thin 200 --seed 42 --out results/certified/n10_mcmc_4000.csv` | ≈8 s |
-| Theorem 5.X — p-adic bound scan | `python -m latin_det padic --max-n 12 --primes 2,3,5 --samples-per-n 200 --seed 0 --out results/certified/padic_bounds_table.csv` | ≈3 s |
-| Section 7.1 — isotopy destruction | `python scripts/verify_isotopy_destruction.py` | ≈1 s |
-
-All deterministic outputs are bit-reproducible; their SHA-256 digests
-are recorded in `results/certified/SHA256SUMS`.
-
-## Verifying the integrity of the certified datasets
+All scripts under `scripts/` are standalone (stdlib + numpy + sympy).
+Each script contains its own inlined Jacobson–Matthews sampler or
+exhaustive enumerator as appropriate.  Typical usage:
 
 ```bash
-cd results/certified
-sha256sum -c SHA256SUMS        # Linux / macOS
-Get-Content SHA256SUMS | ForEach-Object { $h,$f = $_ -split '  '; if ((Get-FileHash -Algorithm SHA256 $f).Hash.ToLower() -ne $h) { Write-Error "MISMATCH: $f" } else { "OK: $f" } }   # Windows
+python scripts/jm_paper_verify.py           # ≈ 1 min, covers the main claims
+python scripts/sandpile_n6_exhaustive.py    # ≈ 1–2 s, n=6 census
+python scripts/verify_n8_jm.py              # ≈ 5–10 s, n=8 sharpness witness
+python scripts/jm_sharp_bound.py            # ≈ 1–2 min, full sharpness sweep
+python scripts/red_team_verify.py           # adversarial re-run
 ```
 
-## Key claims that can be independently verified
+The empirical frequencies quoted in the paper
+(e.g. “≈11% of Jacobson–Matthews samples at n=8 satisfy
+32 ∣ det E_std but 64 ∤ det E_std”, “347 samples with dim ker = 1
+across n=8, 12, 16”, “73% conditional frequency”, “2 700 samples
+across n ≤ 20”) are direct outputs of these scripts; re-running
+them under the seeds printed in the script headers reproduces the
+figures up to statistical noise.
 
-1. **Theorem 3.2** (trivial divisibility): every row of `n8_jm_seed0.csv`
-   and `n10_mcmc_4000.csv` has `det_Estd = n · det_A` exactly.
-2. **Proposition 3.8** (cyclic formula): `cyclic_snf.csv` reports
-   `|det A| = n^{n-2}` and invariant factors `(1, n, n, …, n)`.
-3. **Proposition 6.1** (n=6 census): `n6_det_enum.csv` has 9 408 rows;
-   among them 8 832 satisfy `36 | det_Estd` and 576 are the "anomalous"
-   18-divisible class.
-4. **Example 6.4** (n=10 witness): `n10_witness.json` certifies
-   `det_Estd = 154 270 450`, `v_2(det A) = 0`, `v_5(det A) = 1`,
-   `rank_F_2(A) = 9`, and `100 ∤ det_Estd`.
-5. **Section 7.1** (isotopy non-invariance): see
-   `isotopy_destruction.json` — standardising the witness raises
-   `v_2(det A)` from 0 to 4; only 337 / 2 000 random symbol
-   relabellings preserve the odd-determinant property.
+## Key paper results
 
-## Licence
+- **Theorem (unified divisibility)**: `n² / gcd(n,2) | det(E_std)` for every Latin square, every n ≥ 2.
+- **Theorem (F₂-rank criterion, n ≡ 2 mod 4)**: `n² | det(E_std) ⇔ rank_{F₂}(A mod 2) < n − 1`.
+- **Theorem (adjugate criterion, n ≡ 0 mod 4)**: `n² | det(E_std) ⇔ adj(A mod 2) · 𝟏 = 0 over F₂`.
+- **Proposition (n=6 census)**: of 9 408 reduced Latin squares, 8 832 satisfy `36 | det(E_std)` and 576 have the anomalous 18-divisible class.
+- **Universal counterexamples**: an explicit infinite family of skip-one circulant parity patterns yields counterexamples to `n² | det(E_std)` for every n ≡ 2 mod 4, n ≥ 6.
 
-MIT — see [LICENSE](LICENSE).  Please cite the paper when using this
-code or data.
+See `paper/Determinant Divisibility of Centered Latin Squares.pdf` for the full statements and proofs.
+
+## Citation
+
+Babanskyy, O. (2026). *Determinant Divisibility of Centered Latin Squares: A Unified Theorem and the F₂-Rank Obstruction*.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 ## Contact
 
-Oleksiy Babanskyy — `aconsciousfractal@github`.  Issues and pull
-requests welcome.
+Issues and pull requests welcome.
