@@ -5,6 +5,12 @@ The JM chain is provably ergodic on the set of ALL Latin squares of order n.
 This addresses the swap-chain sampling bias discovered in §28.10.
 Standard symbols {1,...,n} are preserved (no symbol permutation).
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

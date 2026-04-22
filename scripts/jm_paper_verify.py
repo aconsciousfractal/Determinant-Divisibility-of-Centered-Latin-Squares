@@ -15,6 +15,12 @@ Open question (n ≡ 0 mod 4):
   But n | det(A) requires 2^a | det(A) where a = v2(n) >= 2.
   Paper says "requires finer 2-adic analysis".
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

@@ -36,6 +36,12 @@ So: (-1)^{floor((n-1)/2) + n-1} = (-1)^{floor(n/2)} for all n >= 2.
 
 UNIFIED FORMULA: det(A_cyc) = (-1)^{floor(n/2)} * n^{n-2}.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 

@@ -7,6 +7,12 @@ Conjectures tested:
   C3: ker(A mod 4) non-trivial ⟺ n² | det(E_std)
   C4: Smith normal form analysis over Z — look at elementary divisors mod 2^a
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 

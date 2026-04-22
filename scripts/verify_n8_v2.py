@@ -1,5 +1,11 @@
 """Fast verification: n^2 | det(E_std) for n = 4, 8.
 Uses isotopy operations on cyclic squares to generate diverse samples."""
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import random
 
 def bareiss_det(M):

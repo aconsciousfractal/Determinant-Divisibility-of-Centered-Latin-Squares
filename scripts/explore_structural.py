@@ -8,6 +8,12 @@ Key insight from explore_min_ker.py (weak mixing):
   For n=12: 1-vector, alternating, and all 3 period-3 vectors were ALWAYS in ker.
   But that was with weak mixing. Need to retest with proper mixing.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

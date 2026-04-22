@@ -11,6 +11,12 @@ Need to dramatically increase swaps to find the true minimum.
 Also: test whether specific vectors (1, period-3, alternating) are 
 truly ALWAYS in ker(B) or just artifacts of weak mixing.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

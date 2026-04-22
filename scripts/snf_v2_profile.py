@@ -66,6 +66,12 @@ in a loop; let me add a max iterations guard.
 Actually, let me just implement a proper modular approach and validate
 against the known n=4 data.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 import random, time, sys

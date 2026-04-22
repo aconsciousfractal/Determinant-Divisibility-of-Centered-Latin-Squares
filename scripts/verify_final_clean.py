@@ -13,6 +13,12 @@ This test:
 3. Re-verify paper's Theorem 4.3 (n≡2 mod 4)
 4. n=4 exhaustive with no-symbol-permutation isotopy
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

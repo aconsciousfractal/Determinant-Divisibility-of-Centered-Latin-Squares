@@ -12,6 +12,12 @@ This script:
   3. Tests the SHARP bound: v₂(det A) ≥ dim_ker_F₂ + 1?
   4. Smith Normal Form analysis: look at 2-adic structure of elementary divisors
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 from itertools import permutations

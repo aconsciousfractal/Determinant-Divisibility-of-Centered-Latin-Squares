@@ -408,6 +408,11 @@ if __name__ == "__main__":
     pr(f"  Parity determines K(A): {'NO' if conflicts > 0 else 'YES'}")
     pr(f"  C7 pass rate: {c7_pass}/{nonsingular} ({100*c7_pass/nonsingular:.1f}%)")
     pr(f"  C7 failure ⟺ alien prime: {'YES' if (alien_pass == 0 and no_alien_fail == 0) else 'NO'}")
-    
+    if n == 6:
+        _d36 = sum(1 for _, dv, _, _ in all_data if (6*dv) % 36 == 0)
+        _d18not36 = sum(1 for _, dv, _, _ in all_data if dv != 0 and (6*dv) % 18 == 0 and (6*dv) % 36 != 0)
+        pr(f"  Reduced LS with 36 | det(E_std): {_d36}")
+        pr(f"  Reduced LS with 18 | det(E_std) but 36 ∤ det(E_std): {_d18not36}")
+
     out.close()
     print(f"\n  Results saved to n6_results.txt")

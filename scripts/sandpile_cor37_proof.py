@@ -17,6 +17,12 @@ since d_k = Δ_k / Δ_{k-1}, giving d_1 = 1, d_k = n for k >= 2.
 We verify this determinantal divisor sequence explicitly for n = 2..12.
 Then we prove it algebraically using the circulant structure.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from math import gcd
 from functools import reduce

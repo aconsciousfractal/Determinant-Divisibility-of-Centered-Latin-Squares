@@ -18,6 +18,12 @@ So: n² | det ⟺ 1 ∈ im(A mod 2) OR rank_F₂(A) ≤ n-3.
 
 This script verifies the UNIFIED criterion at n=4 (exhaustive) and n=8 (massive sample).
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 

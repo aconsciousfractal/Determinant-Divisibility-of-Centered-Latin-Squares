@@ -1,5 +1,11 @@
 """Definitive verification: n^2 | det(E_std) for n=8 using Jacobson-Matthews.
 This settles whether Corollary 3.3/4.4 are correct or the dossier's v_2=5 claim."""
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 
 

@@ -10,6 +10,12 @@ Three investigations in one:
 3. MINIMUM ker dim at each n ≡ 0 mod 4:
    Is there a formula? Does n=2^a have min dim ker = 1, while n=4k (k odd) has higher?
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 

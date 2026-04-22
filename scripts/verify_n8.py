@@ -5,6 +5,12 @@ for n ≡ 0 mod 4, does n^2 always divide det(E_std)?
 
 Also check the Open Question 5 claim: v_2(det E_std) = 5 minimum at n=8.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import random
 import math

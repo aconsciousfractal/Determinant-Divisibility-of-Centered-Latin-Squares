@@ -5,6 +5,12 @@ POINT 3: Corrected p-Sylow — extensive verification + proof sketch
 POINT 6: Find EXPLICIT unimodular transformation A_cyc → L_red(K_n)
          + prove the abstract characterization
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from sympy import Matrix, ZZ
 from sympy.matrices.normalforms import smith_normal_form

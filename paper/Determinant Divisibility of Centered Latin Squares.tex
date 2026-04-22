@@ -1,31 +1,50 @@
 \documentclass[11pt,a4paper]{article}
 
-% ── Packages ──────────────────────────────────────────────────────────────
+% ── Packages (replicate Bonnet paper preamble) ────────────────────────────
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathtools}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{thmtools}
+\usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{array}
-\usepackage{hyperref}
-\usepackage{xurl}               % permissive URL line-breaking
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage[svgnames]{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
 \usepackage{cleveref}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
 
-% ── Theorem environments ──────────────────────────────────────────────────
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
+% ── Theorem environments (upright body via thmtools) ─────────────────────
+\declaretheoremstyle[
+  headfont=\bfseries,
+  bodyfont=\normalfont,
+  notefont=\normalfont, notebraces={(}{)},
+  headpunct={.},
+  postheadspace=0.5em,
+  spaceabove=\topsep, spacebelow=\topsep,
+]{mainstyle}
 
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
+\declaretheorem[style=mainstyle,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=mainstyle,name=Proposition,sibling=theorem]{proposition}
+\declaretheorem[style=mainstyle,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=mainstyle,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=mainstyle,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=mainstyle,name=Example,sibling=theorem]{example}
+\declaretheorem[style=mainstyle,name=Remark,sibling=theorem]{remark}
 
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
+\makeatletter
+\renewcommand*{\theHtheorem}{\thesection.\arabic{theorem}}
+\renewcommand*{\theHproposition}{\theHtheorem}
+\renewcommand*{\theHlemma}{\theHtheorem}
+\renewcommand*{\theHcorollary}{\theHtheorem}
+\renewcommand*{\theHdefinition}{\theHtheorem}
+\renewcommand*{\theHexample}{\theHtheorem}
+\renewcommand*{\theHremark}{\theHtheorem}
+\makeatother
 
 % ── Notation shortcuts ────────────────────────────────────────────────────
 \newcommand{\ZZ}{\mathbb{Z}}
@@ -677,6 +696,7 @@ The result follows from \Cref{thm:adjugate-criterion}.
 \end{remark}
 
 \begin{example}\label{ex:adj-n8}
+\sloppy
 For a Latin square~$L$ of order~$8$ with rows
 $(4,3,6,8,5,7,2,1)$, $(2,7,4,1,6,8,3,5)$,
 $(8,5,3,4,1,6,7,2)$, $(5,1,7,3,2,4,6,8)$,
@@ -997,7 +1017,7 @@ The complete criterion is given by
 \end{remark}
 
 % ══════════════════════════════════════════════════════════════════════════
-\section{Smith normal form and $p$-adic bounds}\label{sec:snf}
+\section{\texorpdfstring{Smith normal form and $p$-adic bounds}{Smith normal form and p-adic bounds}}\label{sec:snf}
 % ══════════════════════════════════════════════════════════════════════════
 
 The adjugate argument in the proof of \Cref{thm:4k-sufficient}
@@ -1133,8 +1153,8 @@ whenever $\dim\ker_{\FF_2}(A\bmod 2)\ge 2$ (\Cref{thm:4k-sufficient}).
 
 \subsection{Exhaustive classification at n=6}
 
-There are exactly $9408$ reduced Latin squares of order~$6$ (first row
-${}={}$ first column ${}= (1,2,3,4,5,6)$).  Every Latin square of
+{\sloppy There are exactly $9408$ reduced Latin squares of order~$6$ (first row
+${}={}$ first column ${}= (1,2,3,4,5,6)$).\par}  Every Latin square of
 order~$6$ is equivalent to a reduced one via row and column permutations,
 which preserve~$\det(\Estd)$ up to sign.
 
@@ -1416,19 +1436,20 @@ sharp at $n=8$.
 
 The overall picture is as follows:
 \begin{center}
-\begin{tabular}{lll}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}l l l@{}}
   \toprule
   $n$ & Divisibility & Status \\
   \midrule
   $n$ odd & $n^2\mid\det(\Estd)$ & Universal (\Cref{thm:unified}) \\
-  $n$ even & $\frac{n^2}{2}\mid\det(\Estd)$ & Universal; globally sharp for even orders, but not at $n=4$ (\Cref{thm:unified,prop:sharp,rem:n4}) \\
+  $n$ even & $\tfrac{n^2}{2}\mid\det(\Estd)$ & Universal; globally sharp for even orders, but not at $n=4$ (\Cref{thm:unified,prop:sharp,rem:n4}) \\
   $n\equiv 2\pmod{4}$ & $n^2\mid\det(\Estd)$ & iff $\rank_{\FF_2}(A\bmod 2)<n{-}1$ (\Cref{thm:F2-characterization}) \\
   $n\equiv 2\pmod{4}$ & $n^2\nmid\det(\Estd)$ & $\exists$ for all $n\ge 6$ (\Cref{thm:universal-counterexamples}) \\
   $n\equiv 0\pmod{4}$ & $n^2\mid\det(\Estd)$ & iff $\adj(A\bmod 2)\cdot\one=\mathbf{0}$ (\Cref{thm:adjugate-criterion}) \\
   $n$ even & $v_2(\det A)\ge v_2(n/2)+\max(0,k{-}1)$ & Lower bound (\Cref{thm:sharp-v2}), $k=\dim\ker_{\FF_2}$ \\
   odd $p\mid n$ & $v_p(\det A)\ge v_p(n)+\max(0,k_p{-}1)$ & Lower bound (\Cref{cor:sharp-vp}), $k_p=\dim\ker_{\FF_p}$ \\
   \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{center}
 
 \subsection{Consequences and related directions}

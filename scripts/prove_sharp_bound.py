@@ -17,6 +17,12 @@ KEY LEMMA (Step 2): The largest invariant factor d_{n-1} satisfies h | d_{n-1}.
 
 This script verifies EVERY step computationally.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 import random, time, sys

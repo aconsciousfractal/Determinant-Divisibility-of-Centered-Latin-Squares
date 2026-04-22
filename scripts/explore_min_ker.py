@@ -12,6 +12,12 @@ This script:
 3. Searches for structural reasons: what forces extra kernel vectors?
 4. Tests whether min ker(A²) also has a pattern
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from itertools import permutations

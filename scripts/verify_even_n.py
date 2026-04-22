@@ -34,6 +34,12 @@ det(E_std) = n · (-n^{n-2}) = -n^{n-1}.
 
 Let me verify numerically.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 
 def cyclic_ls(n):

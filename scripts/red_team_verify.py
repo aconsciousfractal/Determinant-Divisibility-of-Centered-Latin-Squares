@@ -10,6 +10,12 @@ red_team_verify.py — Verify the reviewer's concerns:
    
 3. Is the p-Sylow conjecture trivially true / reducible?
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from math import gcd
 from functools import reduce

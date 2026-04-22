@@ -2,6 +2,12 @@
 Quick check: is K(LSG(n)) really constant across all LS of order n?
 The paper claims "since all such graphs are isomorphic" — verify this.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 
 def cyclic_ls(n):

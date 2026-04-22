@@ -2,6 +2,12 @@
 Verify reviewer claim: det(E_std)=0 exists at n=4.
 Check all 4 reduced Latin squares of order 4.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 from itertools import permutations
 
 def is_latin_square(L, n):

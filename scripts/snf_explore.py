@@ -10,6 +10,12 @@ Strategy:
   3. Analyze v2(d_i) vs kdim = dim ker_F2(B)
   4. Look for the pattern: kdim extra 0s in (d_i mod 2) <=> kdim elementary divisors even
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 import random, time, sys

@@ -18,6 +18,12 @@ So 1 ∈ ker(A mod 2) gives v₂(det A) ≥ 1 extra. Combined with base floor:
 
 Let me just compute and see.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 

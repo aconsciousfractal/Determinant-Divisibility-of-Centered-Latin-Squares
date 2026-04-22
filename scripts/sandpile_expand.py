@@ -8,6 +8,12 @@ GOALS:
   4. C7: characterize when |K(A)| ∤ |K(LSG)|
   5. New: SNF profile distribution for n=5 (exhaustive) and n=7
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 import random
 from math import gcd

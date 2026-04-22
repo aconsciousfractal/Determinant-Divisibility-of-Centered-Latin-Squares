@@ -5,6 +5,12 @@ POINT 3: p-Sylow conjecture — when is it nontrivial? What does Thm 3.2 already
 POINT 6: WHY is K(A_cyc) = (Z/n)^{n-2}? 
          Connection to complete graph Laplacian (Kirchhoff).
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from sympy import Matrix, ZZ, factorint, isprime, gcd as sgcd
 from sympy.matrices.normalforms import smith_normal_form

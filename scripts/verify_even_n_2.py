@@ -77,6 +77,12 @@ Product of nonzero eigenvalues = n^{n-1} / ((-1)^{n-1} * n) = (-1)^{n-1} * n^{n-
 
 Now: what's the relation to det(A)?
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 
 def cyclic_ls(n):

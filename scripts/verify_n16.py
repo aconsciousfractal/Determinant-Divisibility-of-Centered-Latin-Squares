@@ -10,6 +10,12 @@ Question: does the SAME criterion work at n=16, or do we need more
 
 Also: is dim ker(A) always ≥ 1 at n=16? (Yes: 1∈ker since 16/2=8 is even.)
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 import time

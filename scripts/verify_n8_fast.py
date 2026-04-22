@@ -1,4 +1,10 @@
 """Fast verification: n^2 | det(E_std) for n = 4, 8, 12."""
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import random, math
 
 def bareiss_det(M):

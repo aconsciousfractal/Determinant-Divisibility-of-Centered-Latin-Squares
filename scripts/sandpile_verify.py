@@ -12,6 +12,12 @@ Claims to verify:
   C8: p-Sylow generalization for odd primes (Conjectured)
   C9: Parity pattern does NOT determine K(A) for n=6 (Observation)
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 import random
 from fractions import Fraction

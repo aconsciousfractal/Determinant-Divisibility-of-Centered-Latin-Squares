@@ -10,6 +10,12 @@ Also: d_2^{n-2} <= product = n^{n-2}, so d_2 <= n.
 Therefore: d_2 = n.
 Induction: d_3 = ... = d_{n-1} = n.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from sympy import Matrix
 

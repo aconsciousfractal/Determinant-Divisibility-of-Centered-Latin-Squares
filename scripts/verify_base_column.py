@@ -10,6 +10,12 @@ Test:
 3. Test criterion with isotopy WITHOUT column permutation
 4. Test criterion with isotopy WITH column permutation
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

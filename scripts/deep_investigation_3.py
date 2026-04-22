@@ -3,6 +3,12 @@ deep_investigation_3.py — Verify critical anomaly:
 Does k_p = n-2 hold for ALL LS, or just JM-sampled ones?
 Also: when n/p = 1 (p=n) vs n/p ≥ 2.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from math import gcd
 from functools import reduce

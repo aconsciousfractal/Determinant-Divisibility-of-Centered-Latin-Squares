@@ -10,6 +10,12 @@ This script:
 3. Show that the criterion was an artifact of proximity to cyclic LS
 4. Determine what IS true universally
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

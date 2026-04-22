@@ -1,4 +1,10 @@
 """Run T3 from test_T2_T6.py to check if v_2 = 5 is achievable at n=8."""
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter
 

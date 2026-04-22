@@ -10,6 +10,12 @@ PROOF STRATEGY — Rank-1 Decomposition:
 
 Also: Factor |K(LSG)| for n=5 to fully explain C7 failures.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from math import gcd
 from functools import reduce

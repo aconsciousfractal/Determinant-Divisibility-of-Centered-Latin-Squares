@@ -2,6 +2,12 @@
 Check if K(LSG) structure (not just order) is really constant.
 Also check if the graphs are actually isomorphic or just co-spectral.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from math import gcd
 

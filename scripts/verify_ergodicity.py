@@ -8,6 +8,12 @@ This would make ALL previous "always in kernel" results ARTIFACTS.
 TEST: Generate LS using symbol permutations (isotopy) instead of swap chain.
 If period-p vectors FAIL to be in kernel, the previous results were misleading.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

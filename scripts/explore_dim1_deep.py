@@ -16,6 +16,12 @@ Hypotheses to test:
   H6: Kernel dimension of (A^T A) mod 2 or other derived matrices
   H7: Structural property of the Latin square itself (e.g., transversal count)
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 from collections import Counter, defaultdict
 from math import gcd

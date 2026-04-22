@@ -5,6 +5,12 @@ where kdim = dim ker_F2(A mod 2).
 
 Also: prove kdim >= 2 => n | det(A) via adj(A) argument.
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 import numpy as np
 from collections import Counter

@@ -16,6 +16,12 @@ For k = n/2 (even n only):
 Product of |eigenvalues| = ∏|ĥ(k)| for k=1..n-1 = n^{n-2}
 Sign: ⌊n/2⌋ negative eigenvalues → (-1)^{⌊n/2⌋}
 """
+import sys as _sys
+try:
+    _sys.stdout.reconfigure(encoding="utf-8")
+    _sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import numpy as np
 
 def cyclic_ls(n):
