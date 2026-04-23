@@ -44,12 +44,11 @@ generated during the research phase.
 │   └── ...
 ├── results/                   # Outputs captured during research
 │   ├── n6_results.txt                #   exhaustive n=6 SNF census (9 408 squares)
-│   ├── phase12/, phase13/, phase13c/ #   rank-parity investigation datasets
+│   ├── phase12/, phase13/, phase13c/ #   auxiliary investigation datasets
 │   ├── phase14/, phase14b/, phase14c/
 │   ├── phase14*_output.txt           #   consolidated run logs
 │   ├── prefold_svg/                  #   figures (SVG)
 │   └── proof_n5_data.json            #   n=5 proof-assisting data
-├── RANK_PARITY_DOSSIER.md     # Internal research dossier (all phases, proofs, discovery log)
 ├── LICENSE                    # MIT
 ├── requirements.txt
 └── .gitignore
