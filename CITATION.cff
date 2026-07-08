@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or the accompanying paper, please cite it as below."
+title: "Determinant Divisibility of Centered Latin Squares: A Unified Theorem and the F2-Rank Obstruction"
+authors:
+  - family-names: "Babanskyy"
+    given-names: "Oleksiy"
+type: software
+license: MIT
+repository-code: "https://github.com/aconsciousfractal/Determinant-Divisibility-of-Centered-Latin-Squares"
+version: "v1.0-submission"
+date-released: "2026-04-22"
+keywords:
+  - Latin squares
+  - determinant divisibility
+  - F2-rank
+  - centered matrix
+  - parity pattern

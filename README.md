@@ -97,6 +97,24 @@ figures up to statistical noise.
 
 See `paper/Determinant Divisibility of Centered Latin Squares.pdf` for the full statements and proofs.
 
+## Claim Boundary
+
+Companion claim-discipline docs were added on 2026-07-08 (after the
+`v1.0-submission` tag; the paper is unchanged):
+
+- `CLAIM_LEDGER.md` — every claim with its level (theorem-in-paper,
+  certified-finite, evidence, blocked) and paper locator.
+- `PUBLIC_CLAIM_BOUNDARY.md` — what may and may not be quoted from this work.
+- `README_REVIEWER.md` — 10/30-minute reviewer paths.
+- `REPRODUCE.md` — verified smoke replay (n=6 exhaustive census) and
+  long-tier sampling runs.
+
+Short form: the three theorems and the counterexample family are proved in
+the paper; the n=6 census is exhaustive and replayable; p-adic bound
+TIGHTNESS and all sampling tables are evidence, not proof; the curated
+certified-dataset package described in the paper's availability paragraph
+is not yet in this snapshot (see `CLAIM_LEDGER.md`, GAP-1).
+
 ## Citation
 
 Babanskyy, O. (2026). *Determinant Divisibility of Centered Latin Squares: A Unified Theorem and the F₂-Rank Obstruction*.
