@@ -21,10 +21,16 @@ Companion documentation added 2026-07-08, after publication (tag
   paper explicitly does not claim this (Sec. 8).
 - That sampling tables prove any theorem — they are consistency checks and
   witness sources only.
-- That this repository currently contains the curated certified package
-  (`latin_det`, certified datasets, SHA256SUMS manifest, isotopy script)
-  described in the paper's availability paragraph — it does not (GAP-1),
-  until the owner closes that gap.
+- That the certified package matches the paper's availability paragraph
+  word-for-word. The package was BUILT 2026-07-09 (owner-directed) and
+  the ledger's GAP-1 row records four documented deviations that may
+  not be papered over when quoting it: (1) the n=10 switch-chain table
+  was generated with seed 20260412, not the paper's "seed 42"; (2) the
+  n=8 10,000-sample corpus is a REGENERATION to the paper's spec (the
+  original did not survive), not the original run; (3) "the latin_det
+  package" is this repository's scripts/ + results/ layout, not a
+  separately installable Python package; (4) the p-adic scan samples
+  n = 6..20, not exactly the promised n ≤ 12.
 
 ## Scope Notes
 

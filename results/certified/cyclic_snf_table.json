@@ -1,0 +1,239 @@
+{
+  "table": "cyclic Smith-normal-form table, n <= 12",
+  "generator": "scripts/cyclic_snf_table.py",
+  "convention": "A[i][j] = L[i][j] - L[i][n-1], (n-1)x(n-1)",
+  "results": {
+    "2": {
+      "invariant_factors": [
+        1
+      ],
+      "expected": [
+        1
+      ],
+      "abs_det_A": 1,
+      "abs_det_E_std": 2,
+      "matches_paper": true
+    },
+    "3": {
+      "invariant_factors": [
+        1,
+        3
+      ],
+      "expected": [
+        1,
+        3
+      ],
+      "abs_det_A": 3,
+      "abs_det_E_std": 9,
+      "matches_paper": true
+    },
+    "4": {
+      "invariant_factors": [
+        1,
+        4,
+        4
+      ],
+      "expected": [
+        1,
+        4,
+        4
+      ],
+      "abs_det_A": 16,
+      "abs_det_E_std": 64,
+      "matches_paper": true
+    },
+    "5": {
+      "invariant_factors": [
+        1,
+        5,
+        5,
+        5
+      ],
+      "expected": [
+        1,
+        5,
+        5,
+        5
+      ],
+      "abs_det_A": 125,
+      "abs_det_E_std": 625,
+      "matches_paper": true
+    },
+    "6": {
+      "invariant_factors": [
+        1,
+        6,
+        6,
+        6,
+        6
+      ],
+      "expected": [
+        1,
+        6,
+        6,
+        6,
+        6
+      ],
+      "abs_det_A": 1296,
+      "abs_det_E_std": 7776,
+      "matches_paper": true
+    },
+    "7": {
+      "invariant_factors": [
+        1,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "expected": [
+        1,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "abs_det_A": 16807,
+      "abs_det_E_std": 117649,
+      "matches_paper": true
+    },
+    "8": {
+      "invariant_factors": [
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "expected": [
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "abs_det_A": 262144,
+      "abs_det_E_std": 2097152,
+      "matches_paper": true
+    },
+    "9": {
+      "invariant_factors": [
+        1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "expected": [
+        1,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "abs_det_A": 4782969,
+      "abs_det_E_std": 43046721,
+      "matches_paper": true
+    },
+    "10": {
+      "invariant_factors": [
+        1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "expected": [
+        1,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "abs_det_A": 100000000,
+      "abs_det_E_std": 1000000000,
+      "matches_paper": true
+    },
+    "11": {
+      "invariant_factors": [
+        1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "expected": [
+        1,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11,
+        11
+      ],
+      "abs_det_A": 2357947691,
+      "abs_det_E_std": 25937424601,
+      "matches_paper": true
+    },
+    "12": {
+      "invariant_factors": [
+        1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "expected": [
+        1,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "abs_det_A": 61917364224,
+      "abs_det_E_std": 743008370688,
+      "matches_paper": true
+    }
+  },
+  "all_match_paper": true
+}

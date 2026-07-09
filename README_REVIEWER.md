@@ -8,8 +8,8 @@ Companion documentation added 2026-07-08, after publication (tag
 1. Read the abstract in
    `paper/Determinant Divisibility of Centered Latin Squares.pdf`.
 2. Read `CLAIM_LEDGER.md` — three theorem groups (C1-C6), one certified
-   finite census (C8), sampling evidence (C7/C9), and one recorded gap
-   (GAP-1).
+   finite census (C8), sampling evidence (C7/C9), and the resolved
+   package gap with its four documented deviations (GAP-1).
 3. Run the smoke replay:
    `PYTHONUTF8=1 python scripts/sandpile_n6_exhaustive.py`
    (~1-2 min; expects 9408 = 8832 + 576 at order 6).
@@ -34,7 +34,14 @@ Companion documentation added 2026-07-08, after publication (tag
 ## Known Limits
 
 - Sampling (JM, switch-chain) is not exact-uniform and proves nothing.
-- Long sampling scripts are multi-minute-to-hour runs; only the n=6
-  census was re-verified in the 2026-07-08 retrofit.
-- GAP-1: the curated certified-dataset package described in the paper's
-  availability paragraph is not yet in this snapshot (`CLAIM_LEDGER.md`).
+- Long sampling scripts are multi-minute-to-hour runs; the n=6 census
+  was re-verified 2026-07-08; the certified-package generators were all
+  run/replayed 2026-07-09 (`REPRODUCE.md`).
+- GAP-1 (resolved 2026-07-09): the certified package now exists
+  (`results/certified/`, SHA256SUMS) with four documented deviations
+  from the paper's availability paragraph — the n=10 table's real seed
+  is 20260412 (not the stated "seed 42"), the n=8 corpus is a
+  regeneration to spec (original lost; 10.56% observed vs "~11%"),
+  "latin_det" denotes this repo's layout, not an installable package,
+  and the p-adic scan samples n = 6..20 rather than exactly the
+  promised n ≤ 12 (`CLAIM_LEDGER.md`).

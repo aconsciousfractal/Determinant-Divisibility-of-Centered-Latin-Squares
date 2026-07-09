@@ -103,17 +103,20 @@ Companion claim-discipline docs were added on 2026-07-08 (after the
 `v1.0-submission` tag; the paper is unchanged):
 
 - `CLAIM_LEDGER.md` — every claim with its level (theorem-in-paper,
-  certified-finite, evidence, blocked) and paper locator.
+  certified-finite, evidence, blocked/resolved) and paper locator.
 - `PUBLIC_CLAIM_BOUNDARY.md` — what may and may not be quoted from this work.
 - `README_REVIEWER.md` — 10/30-minute reviewer paths.
-- `REPRODUCE.md` — verified smoke replay (n=6 exhaustive census) and
-  long-tier sampling runs.
+- `REPRODUCE.md` — verified smoke replay (n=6 exhaustive census),
+  long-tier sampling runs, and the certified package map.
 
 Short form: the three theorems and the counterexample family are proved in
 the paper; the n=6 census is exhaustive and replayable; p-adic bound
-TIGHTNESS and all sampling tables are evidence, not proof; the curated
+TIGHTNESS and all sampling tables are evidence, not proof. The curated
 certified-dataset package described in the paper's availability paragraph
-is not yet in this snapshot (see `CLAIM_LEDGER.md`, GAP-1).
+was built 2026-07-09 (`results/certified/` with SHA256SUMS manifest; item
+map in `REPRODUCE.md`) with four documented deviations from the
+paragraph's wording — seed attribution, regenerated n=8 corpus, package
+layout, p-adic scan range — recorded in `CLAIM_LEDGER.md`, GAP-1.
 
 ## Citation
 
