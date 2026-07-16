@@ -57,7 +57,7 @@ in `CLAIM_LEDGER.md` GAP-1.
 | n=10 switch-chain table (4,000 samples) | `results/phase12/` (4 files) | `scripts/phase12_corpus.py` | replay BYTE-IDENTICAL (35 s); real seed 20260412, paper's "seed 42" is incorrect |
 | n=8 table (10,000 samples, seed 0) | `results/certified/jm_n8_corpus_summary.json` | `scripts/jm_n8_corpus.py` | REGENERATED to paper spec (original lost); 10.56% sharp vs paper's "approximately 11%"; 0 bound violations |
 | cyclic SNF table n ≤ 12 | `results/certified/cyclic_snf_table.json` | `scripts/cyclic_snf_table.py` | 11/11 rows match diag(1,n,...,n) |
-| p-adic bound scan | `results/certified/padic_scan_output.txt` | `scripts/padic_bound_scan.py` | 2700 (n,p,sample) tests, n = 6..20 (NOT exactly the promised n ≤ 12 — deviation D4 in `CLAIM_LEDGER.md`), 0 violations |
+| p-adic bound scan | `results/certified/padic_scan_output.txt` | `scripts/padic_bound_scan.py` | 2700 (n,p,sample) tests over n ∈ {6,8,9,10,12,15,16,18,20} (NOT exactly the promised n ≤ 12 — deviation D4 in `CLAIM_LEDGER.md`), 0 violations; equality attained per (n,p) pair |
 | ex:n10 witness JSON | `results/certified/ex_n10_witness.json` | `scripts/verify_isotopy_destruction.py` | 12/12 script checks PASS (the paper table's 8 invariants + the Discussion destruction) |
 | isotopy script | `scripts/verify_isotopy_destruction.py` | (standalone, deterministic) | standard-form reduction gives EVEN det(A) = 3554320 — counterexample destroyed, as the Discussion claims |
 | SHA-256 manifest | `results/certified/SHA256SUMS` | `scripts/make_sha256sums.py` | see below |

@@ -80,10 +80,11 @@ python scripts/red_team_verify.py           # adversarial re-run
 ```
 
 The empirical frequencies quoted in the paper
-(e.g. “≈11% of Jacobson–Matthews samples at n=8 satisfy
+(e.g. “10.56% of Jacobson–Matthews samples at n=8 satisfy
 32 ∣ det E_std but 64 ∤ det E_std”, “347 samples with dim ker = 1
-across n=8, 12, 16”, “73% conditional frequency”, “2 700 samples
-across n ≤ 20”) are direct outputs of these scripts; re-running
+across n=8, 12, 16”, “73% conditional frequency”, “2 700 (n,p,sample)
+tests across n ∈ {6,8,9,10,12,15,16,18,20}”) are direct outputs of
+these scripts; re-running
 them under the seeds printed in the script headers reproduces the
 figures up to statistical noise.
 

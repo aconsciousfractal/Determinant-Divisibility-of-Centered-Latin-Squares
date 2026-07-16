@@ -16,7 +16,8 @@ Companion documentation added 2026-07-08, after publication (tag
 ## Must Not Say
 
 - That the p-adic bounds are proved TIGHT in general — tightness is
-  sampling evidence up to n ≤ 20 only (C7).
+  sampling evidence on the nine sampled orders
+  n ∈ {6,8,9,10,12,15,16,18,20} only (C7).
 - That Jacobson-Matthews or switch-chain samples are exactly uniform — the
   paper explicitly does not claim this (Sec. 8).
 - That sampling tables prove any theorem — they are consistency checks and
@@ -30,7 +31,7 @@ Companion documentation added 2026-07-08, after publication (tag
   original did not survive), not the original run; (3) "the latin_det
   package" is this repository's scripts/ + results/ layout, not a
   separately installable Python package; (4) the p-adic scan samples
-  n = 6..20, not exactly the promised n ≤ 12.
+  n ∈ {6,8,9,10,12,15,16,18,20}, not exactly the promised n ≤ 12.
 
 ## Scope Notes
 

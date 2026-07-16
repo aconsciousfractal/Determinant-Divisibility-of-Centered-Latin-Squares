@@ -97,7 +97,8 @@ of skip-one circulant parity patterns (\emph{universal counterexamples}).
 These results are complemented by $p$-adic lower bounds:
 $v_p(\det A)\ge v_p(n)+\max(0,k_p-1)$ for every odd prime~$p\mid n$,
 and $v_2(\det A)\ge v_2(n/2)+\max(0,k_2-1)$ when $n$ is even
-(empirically tight across sampled instances up to $n\le 20$),
+(empirically sharp: over nine sampled orders up to $n=20$ the bound is never
+violated, with equality attained in each sampled $(n,p)$ pair),
 a cokernel computation for cyclic
 Latin squares, and exhaustive/constructive counterexample analyses
 at orders $6$ and~$10$.  The determinant side of the story may be viewed
@@ -393,7 +394,7 @@ determinant is verified by Bareiss elimination to satisfy $32 \mid
 
 \begin{remark}\label{rem:n8-sampling}
 In a corpus of $10\,000$ Jacobson--Matthews samples at $n = 8$
-($5n^2$ mixing steps each), approximately $11\%$ satisfy
+($5n^2$ mixing steps each), $10.56\%$ satisfy
 $32\mid\det(\Estd)$ but $64\nmid\det(\Estd)$.  This sampling frequency
 is not claimed as a rigorous proportion of all Latin squares of order~$8$.
 \end{remark}
@@ -591,7 +592,7 @@ and $2\mid\det(A)$ unconditionally.  However, for $n^2\mid\det(\Estd)$
 one needs $2^a\mid\det(A)$ where $a=v_2(n)\ge 2$, and the rank
 condition provides only one factor of~$2$ beyond the $2^{a-1}$ already
 guaranteed by $h\mid\det(A)$.  Indeed,
-for $n=8$, approximately $11\%$ of Jacobson--Matthews samples achieve
+for $n=8$, $10.56\%$ of Jacobson--Matthews samples achieve
 $v_2(\det\Estd)=5=2v_2(n)-1$, so that
 $\frac{n^2}{2}\mid\det(\Estd)$ but $n^2\nmid\det(\Estd)$.
 A sufficient condition for $n^2\mid\det(\Estd)$ when
@@ -1126,9 +1127,12 @@ pigeonhole completes the proof as before.
 
 \begin{remark}
 The bound of \Cref{cor:sharp-vp} is consistent with every observed
-$(n,p,k_p)$ triple: $2700$ Jacobson--Matthews samples across
-$n\le 20$ and $p\in\{2,3,5\}$ produced zero violations, and equality was
-observed in every sampled case.
+$(n,p,k_p)$ triple: $2700$ $(n,p,\mathrm{sample})$ bound tests on
+Jacobson--Matthews samples across the sampled
+orders $n\in\{6,8,9,10,12,15,16,18,20\}$ and, for each order, the primes
+$p\mid n$ (so $p\in\{2,3,5\}$), produced zero violations, and equality with
+the bound was attained by at least one sample in each $(n,p)$ pair (though
+not by every sample, nor at every $k_p$ level).
 \end{remark}
 
 % ══════════════════════════════════════════════════════════════════════════
@@ -1386,7 +1390,7 @@ within several hundred trials, each trial requiring a few seconds.
 \paragraph{Code and data availability.}
 
 All scripts, seeds, and certified datasets used in this paper are
-available as an open-source Python package (\texttt{latin\_det})
+available in the public open-source repository (the \texttt{scripts/} and \texttt{results/} trees)
 released under the MIT licence at
 \url{https://github.com/aconsciousfractal/Determinant-Divisibility-of-Centered-Latin-Squares}.
 The repository includes:\ (i)~exact Bareiss determinant, $\FF_2$~rank,
@@ -1394,9 +1398,9 @@ adjugate and Smith-normal-form routines;\ (ii)~a reproducible random
 Latin-square sampler and a switch-chain MCMC on $\mathcal{R}(n,n/2)$;\ 
 (iii)~certified datasets for $n\in\{5,6\}$ exhaustive enumeration, the
 $10{,}000$-sample $n=8$ table (seed~$0$), the $4{,}000$-sample $n=10$
-switch-chain table (seed~$42$), the cyclic Smith-normal-form table for
-$n\le 12$, the $p$-adic bound scan for $n\le 12$,
-$p\in\{2,3,5\}$, and the \Cref{ex:n10} witness JSON certificate;\ and
+switch-chain table (seed~$20260412$), the cyclic Smith-normal-form table for
+$n\le 12$, the $p$-adic bound scan over the sampled orders
+$n\in\{6,8,9,10,12,15,16,18,20\}$, $p\in\{2,3,5\}$, and the \Cref{ex:n10} witness JSON certificate;\ and
 (iv)~a standalone script
 (\texttt{scripts/verify\_isotopy\_destruction.py}) reproducing the
 isotopy non-invariance experiment of~\S\ref{sec:discussion}.  A
@@ -1547,7 +1551,7 @@ with $|K(A)|$ divisible by a prime $p\ge 5$ fails.
         Several distinct frequencies have been observed.
         At $n=6$, the exact counterexample rate among \emph{reduced
         Latin squares} is $576/9408 \approx 6.1\%$.
-        At $n=8$, approximately $11\%$ of \emph{Jacobson--Matthews
+        At $n=8$, $10.56\%$ of \emph{Jacobson--Matthews
         samples} (Latin squares, not patterns) satisfy
         $n^2\nmid\det(\Estd)$ (\Cref{rem:n8-sampling}).
         At $n=10$, the doubly balanced \emph{parity-pattern} corpus

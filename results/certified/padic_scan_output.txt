@@ -308,7 +308,7 @@
 ======================================================================
   Total (n, p, sample) tests: 2700
   Strong bound violations:     0
-  Verdict: ✓ BOUND HOLDS UNIVERSALLY
+  Verdict: ✓ NO VIOLATIONS IN THE SAMPLED CAMPAIGN
 
     n |  p | v_p(n/2) | tests | viol | tight | k_p dist
   ----+----+----------+-------+------+-------+----------

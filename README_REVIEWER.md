@@ -43,5 +43,5 @@ Companion documentation added 2026-07-08, after publication (tag
   is 20260412 (not the stated "seed 42"), the n=8 corpus is a
   regeneration to spec (original lost; 10.56% observed vs "~11%"),
   "latin_det" denotes this repo's layout, not an installable package,
-  and the p-adic scan samples n = 6..20 rather than exactly the
-  promised n ≤ 12 (`CLAIM_LEDGER.md`).
+  and the p-adic scan samples n ∈ {6,8,9,10,12,15,16,18,20} rather than
+  exactly the promised n ≤ 12 (`CLAIM_LEDGER.md`).

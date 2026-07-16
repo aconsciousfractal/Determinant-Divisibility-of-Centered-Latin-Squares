@@ -4,7 +4,7 @@ p-adic Sharp Bound Verification (the paper's "p-adic bound scan").
 Research-phase script, added to the public repository 2026-07-09 as the
 generator of `results/certified/padic_scan_output.txt` (the "p-adic
 bound scan" item of the paper's Code-and-data-availability paragraph).
-The campaign covers n = 6..20 — a superset of the promised n <= 12 —
+The campaign covers n in {6,8,9,10,12,15,16,18,20} (beyond the promised n <= 12),
 with fixed per-order seeds (42..50); all primes p | n are scanned,
 which includes p in {2, 3, 5} on the promised range.
 
@@ -349,7 +349,7 @@ def run_campaign():
     print(f"{'='*70}")
     print(f"  Total (n, p, sample) tests: {total_tests}")
     print(f"  Strong bound violations:     {total_violations}")
-    print(f"  Verdict: {'✓ BOUND HOLDS UNIVERSALLY' if total_violations == 0 else '*** VIOLATIONS FOUND ***'}")
+    print(f"  Verdict: {'✓ NO VIOLATIONS IN THE SAMPLED CAMPAIGN' if total_violations == 0 else '*** VIOLATIONS FOUND ***'}")
     
     # Compact table
     print(f"\n  {'n':>3} | {'p':>2} | {'v_p(n/2)':>8} | {'tests':>5} | {'viol':>4} | {'tight':>5} | k_p dist")
