@@ -877,12 +877,13 @@ property---depends only on the parity pattern
 
 \begin{remark}[Consecutive interval degeneration]\label{rem:consecutive}
 The complementary choice $T_n=\{0,1,\dots,k-1\}$ (a consecutive
-interval) always yields $\rank_{\FF_2}(\mathcal{P}_{T_n})=n/2$,
-the minimum possible for a doubly balanced circulant.  This is because
+interval) always yields $\rank_{\FF_2}(\mathcal{P}_{T_n})=n/2+1$.
+This is because
 the indicator polynomial $g(x)=1+x+\cdots+x^{k-1}=(x^k+1)/(x+1)$
 divides $x^k+1$ over~$\FF_2$, so
 $\gcd(g,x^{2k}+1)=(x^k+1)/(x+1)$ has degree $k-1$, and the rank
-drops by $k-1$.  The skip-one modification $S_n=T_n\setminus\{k-1\}\cup
+drops from~$n$ by $k-1$ to $n-(k-1)=n/2+1$.  The skip-one
+modification $S_n=T_n\setminus\{k-1\}\cup
 \{k\}$ breaks this divisibility and restores full rank.
 \end{remark}
 
