@@ -77,3 +77,11 @@ Manifest check from the repo root:
 ```bash
 sha256sum -c results/certified/SHA256SUMS
 ```
+
+The manifest pins the canonical (git-stored, LF) bytes of each artifact
+(repinned 2026-07-18 — see `CLAIM_LEDGER.md` Errata E2). On Linux/macOS
+clones `sha256sum -c` passes directly. On a Windows checkout with
+`core.autocrlf=true` the newline-bearing text artifacts materialize with
+CRLF on disk, so either clone with `core.autocrlf=false`, or re-run
+`python scripts/make_sha256sums.py` (which normalizes CRLF→LF before
+hashing) and diff against the committed manifest.

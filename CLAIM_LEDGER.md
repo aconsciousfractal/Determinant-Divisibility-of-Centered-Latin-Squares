@@ -34,3 +34,27 @@ scope caveats are unchanged.
 Red-team notes: `scripts/red_team_step1.py` and `scripts/red_team_verify.py`
 are the research-phase adversarial recompute scripts; they are part of the
 evidence trail, not proofs.
+
+## Errata
+
+- **E1 (2026-07-18, paper corrected).** `rem:consecutive` (Sec. 4.1) stated
+  that the consecutive-interval circulant satisfies
+  `rank_F2(P_{T_n}) = n/2`, "the minimum possible for a doubly balanced
+  circulant". Both clauses were wrong: the remark's own gcd computation
+  (degree `k−1` drop from full rank `n`) gives `n − (k−1) = n/2 + 1`, and
+  direct GF(2) elimination confirms ranks 4, 6, 8, 10, 12 at
+  `n = 6, 10, 14, 18, 22`; nor is `T_n` rank-minimal among doubly balanced
+  circulants (the period-two support `{0,2,…,n−2}` has rank 2). The remark
+  now states `n/2 + 1` with the arithmetic explicit, and the minimality
+  clause is removed. **No theorem is affected**: C5's mechanism uses the
+  skip-one family `S_n` (full rank, proved separately); `T_n` remains
+  degenerate (far below `n−1`) under either value.
+- **E2 (2026-07-18, manifest repinned).** `results/certified/SHA256SUMS`
+  (built 2026-07-09) pinned CRLF disk bytes from a Windows
+  `core.autocrlf=true` checkout for 8 of its 10 entries, while git stores
+  those text artifacts with LF endings — so `sha256sum -c` could never
+  pass on a fresh clone. Verified file-by-file that every mismatching hash
+  equals the CRLF-translation of the stored blob (**no artifact content
+  changed**). The manifest is repinned to the canonical LF blob bytes and
+  `scripts/make_sha256sums.py` now normalizes CRLF→LF before hashing so a
+  regeneration is checkout-independent.

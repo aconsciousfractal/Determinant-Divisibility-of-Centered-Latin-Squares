@@ -2,10 +2,12 @@
 SHA-256 manifest promised in the paper's Code-and-data-availability
 paragraph (Sec. 8). Added 2026-07-09 (see CLAIM_LEDGER.md GAP-1).
 
-Pins the byte-exact contents of every deterministic artefact of the
-certified package. Standard `sha256sum` format with repo-root-relative
-paths; verify with `sha256sum -c results/certified/SHA256SUMS` from the
-repository root (or re-run this script and diff).
+Pins the canonical (git-stored, LF-normalized) bytes of every
+deterministic artefact of the certified package. Standard `sha256sum`
+format with repo-root-relative paths; verify with
+`sha256sum -c results/certified/SHA256SUMS` from the repository root on
+an LF checkout (or re-run this script and diff — it normalizes CRLF, so
+it is checkout-independent).
 """
 import hashlib
 import os
@@ -30,11 +32,16 @@ def main():
     lines = []
     for rel in ARTIFACTS:
         path = os.path.join(REPO_ROOT, rel)
-        h = hashlib.sha256()
         with open(path, "rb") as f:
-            for chunk in iter(lambda: f.read(1 << 20), b""):
-                h.update(chunk)
-        lines.append(f"{h.hexdigest()}  {rel}")
+            data = f.read()
+        # Normalize CRLF -> LF before hashing: git stores these text
+        # artifacts with LF line endings, but a Windows checkout with
+        # core.autocrlf=true materializes CRLF on disk. Hashing raw disk
+        # bytes there pins hashes no fresh (LF) clone can reproduce —
+        # which is exactly what happened to the 2026-07-09 manifest
+        # (repinned 2026-07-18; see CLAIM_LEDGER.md Errata).
+        data = data.replace(b"\r\n", b"\n")
+        lines.append(f"{hashlib.sha256(data).hexdigest()}  {rel}")
         print(lines[-1])
     out = os.path.join(REPO_ROOT, "results", "certified", "SHA256SUMS")
     with open(out, "w", newline="\n") as f:
